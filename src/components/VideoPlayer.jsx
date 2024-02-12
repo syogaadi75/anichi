@@ -41,13 +41,13 @@ function VideoPlayer() {
     navigate(`/watch/${slug}/${episode}`)
   }
 
-  const changeServer = (server) => {
-    setIframeLoaded(false)
-    const iframe = iframeRef.current
-    if (iframe) {
-      iframe.src = server
-    }
-  }
+  // const changeServer = (server) => {
+  //   setIframeLoaded(false)
+  //   const iframe = iframeRef.current
+  //   if (iframe) {
+  //     iframe.src = server
+  //   }
+  // }
 
   const handleIframeLoad = () => {
     setIframeLoaded(true)
@@ -63,7 +63,7 @@ function VideoPlayer() {
             <span className="pr-4 pb-2">{dataAnime.title}</span>
           </div>
           <div>
-            <div className="server-container mb-2">
+            {/* <div className="server-container mb-2">
               <div className="server-item text">Pilih Server</div>
               {dataAnime.serverVideo.map((val, i) => (
                 <div
@@ -73,7 +73,7 @@ function VideoPlayer() {
                   {val.text}
                 </div>
               ))}
-            </div>
+            </div> */}
             {!iframeLoaded && <div>Loading...</div>}
             <div className="flex w-full h-[500px]" id="iframe-container">
               <iframe
@@ -82,6 +82,7 @@ function VideoPlayer() {
                 src={dataAnime.link}
                 onLoad={handleIframeLoad}
                 ref={iframeRef}
+                allowFullScreen
               ></iframe>
             </div>
             <div className="flex justify-end gap-4 mt-4">
