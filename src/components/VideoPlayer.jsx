@@ -15,7 +15,7 @@ function VideoPlayer() {
     setIsLoading(true)
     setIframeLoaded(false)
     try {
-      const res = await axios.get('https://anichi-api.vercel.app/fserver/get-video', {
+      const res = await axios.get('https://anichi-api.vercel.app/tserver/get-video', {
         params: {
           slug,
           episode
@@ -41,14 +41,6 @@ function VideoPlayer() {
     navigate(`/watch/${slug}/${episode}`)
   }
 
-  // const changeServer = (server) => {
-  //   setIframeLoaded(false)
-  //   const iframe = iframeRef.current
-  //   if (iframe) {
-  //     iframe.src = server
-  //   }
-  // }
-
   const handleIframeLoad = () => {
     setIframeLoaded(true)
   }
@@ -63,29 +55,18 @@ function VideoPlayer() {
             <span className="pr-4 pb-2">{dataAnime.title}</span>
           </div>
           <div>
-            {/* <div className="server-container mb-2">
-              <div className="server-item text">Pilih Server</div>
-              {dataAnime.serverVideo.map((val, i) => (
-                <div
-                  onClick={() => changeServer(val.value)}
-                  className={`server-item ${i === 0 ? 'active' : ''}`}
-                >
-                  {val.text}
-                </div>
-              ))}
-            </div> */}
             {!iframeLoaded && <div>Loading...</div>}
             <div className="flex w-full h-[500px]" id="iframe-container">
               <iframe
                 id="iframe-video"
                 className="w-full h-full"
-                src={dataAnime.link}
+                src={dataAnime.defaultSrc}
                 onLoad={handleIframeLoad}
                 ref={iframeRef}
                 allowFullScreen
               ></iframe>
             </div>
-            <div className="flex justify-end gap-4 mt-4">
+            {/* <div className="flex justify-end gap-4 mt-4">
               <div>
                 {dataAnime.navigation.prev ? (
                   <button
@@ -121,7 +102,7 @@ function VideoPlayer() {
                   </button>
                 )}
               </div>
-            </div>
+            </div> */}
           </div>
         </>
       )}

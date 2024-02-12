@@ -7,10 +7,15 @@ import { useNavigate } from 'react-router-dom'
 function Recent() {
   const navigate = useNavigate()
   const [recents, setRecents] = useState([])
+  const [page, setPage] = useState(1)
   const [isLoading, setIsLoading] = useState(true)
-  const loadData = async () => {
+  const loadData = async (navPage) => {
     try {
-      const res = await axios.get('https://anichi-api.vercel.app/fserver/recent')
+      const res = await axios.get('https://anichi-api.vercel.app/tserver/ongoing', {
+        params: {
+          page: navPage
+        }
+      })
       setRecents(res.data.list)
       setIsLoading(false)
       console.log(res.data.list)
@@ -20,7 +25,7 @@ function Recent() {
   }
 
   useEffect(() => {
-    loadData()
+    loadData(page)
   }, [])
 
   const imgMotion = {
@@ -59,8 +64,8 @@ function Recent() {
     }
   }
 
-  const goToWatch = (slug, episode) => {
-    navigate(`/watch/${slug}/${episode}`)
+  const goToDetail = (slug) => {
+    navigate(`/anime/${slug}`)
   }
 
   return (
@@ -77,7 +82,8 @@ function Recent() {
               <motion.div
                 className="recent-item"
                 whileHover="hover"
-                onClick={() => goToWatch(el.slug, el.episode)}
+                onClick={() => goToDetail(el.slug)}
+                key={i}
               >
                 <motion.img variants={imgMotion} className="z-1" src={el.cover} alt="cover" />
                 <motion.div variants={hideTextMotion} className="eps-container">

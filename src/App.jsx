@@ -7,12 +7,14 @@ import Recent from './components/Recent'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import Watch from './pages/Watch'
 import Home from './pages/Home'
+import Detail from './pages/Detail'
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/watch/:slug/:episode" element={<Watch />} />
+        <Route path="/anime/:slug" element={<Detail />} />
         <Route path="/" element={<Home />} />
       </Routes>
     </Router>

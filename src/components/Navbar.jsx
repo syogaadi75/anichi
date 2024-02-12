@@ -40,7 +40,7 @@ function Navbar() {
     } else {
       gsap.to('#navbar', {
         boxShadow: 'none',
-        backgroundColor: 'transparent',
+        backgroundColor: 'rgba(249, 241, 213, .6)',
         height: 60,
         duration: 0.3
       })

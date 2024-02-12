@@ -35,7 +35,8 @@ body {
 
 /* Navbar */
 .navbar {
-  @apply fixed left-0 -top-10 opacity-0 w-full h-[65px] flex items-center justify-between shadow-dark/10 z-20;
+  z-index: 99999999;
+  @apply fixed left-0 -top-10 opacity-0 w-full h-[65px] flex items-center justify-between shadow-dark/10 backdrop-blur-[3px];
 }
 .navbar.scrolled {
   @apply bg-light shadow-lg shadow-dark/20;
@@ -45,7 +46,7 @@ body {
 }
 
 .nav-container {
-  @apply flex gap-4 lg:gap-8 h-full px-12 items-center;
+  @apply flex gap-4 lg:gap-8 h-full px-4 lg:px-12 items-center;
 }
 
 .nav-item-container {
@@ -65,7 +66,10 @@ body {
 }
 
 .search-input {
-  @apply border-2 border-primary text-primary py-1 px-2 w-[150px] lg:py-2 lg:px-3 lg:w-[200px] bg-transparent outline-none rounded-lg;
+  @apply border-2 font-semibold border-primary text-primary py-1 px-2 w-[150px] lg:py-2 lg:px-3 lg:w-[200px] bg-transparent outline-none rounded-lg;
+}
+.search-input::placeholder {
+  @apply text-primary font-semibold;
 }
 
 .btn-search {
