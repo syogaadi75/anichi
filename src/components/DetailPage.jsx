@@ -60,8 +60,8 @@ function DetailPage() {
                 <h2 className="text-2xl px-3 lg:px-2 protest mb-2 lg:mb-4 text-dark drop-shadow shadow-red-500">
                   {dataAnime?.info?.judul}
                 </h2>
-                <div className="overflow-scroll">
-                  <p className="text-sm px-3 py-3 my-3 lg:my-0 lg:py-0 lg:px-2 lg:text-base">
+                <div className="overflow-scroll py-3 px-2 lg:px-0 lg:py-0">
+                  <p className="text-sm px-3 py-3 lg:py-0 lg:px-2 lg:text-base">
                     {dataAnime?.synopsis}
                   </p>
                 </div>
