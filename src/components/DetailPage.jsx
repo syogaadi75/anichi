@@ -9,10 +9,10 @@ function DetailPage() {
   const navigate = useNavigate()
   const [dataAnime, setDataAnime] = useState({})
   const [isLoading, setIsLoading] = useState(true)
-  const loadData = async () => {
+  const loadData = async (theSlug) => {
     setIsLoading(true)
     try {
-      const res = await axios.get('https://anichi-api.vercel.app/tserver/anime/' + slug)
+      const res = await axios.get('https://anichi-api.vercel.app/tserver/anime/' + theSlug)
       console.log(res.data, 'res.data')
       setDataAnime(res.data)
       setIsLoading(false)
@@ -23,11 +23,17 @@ function DetailPage() {
   }
 
   useEffect(() => {
-    loadData()
-  }, [])
+    if (slug) {
+      loadData(slug)
+    }
+  }, [slug])
 
-  const goToWatch = (slug, episode) => {
-    navigate(`/watch/${slug}/${episode}`)
+  const goToWatch = (slug, episode, subepisode) => {
+    if (subepisode != '-') {
+      navigate(`/watch/${slug}/${episode}?se=${subepisode}`)
+    } else {
+      navigate(`/watch/${slug}/${episode}`)
+    }
   }
 
   return (
@@ -62,11 +68,32 @@ function DetailPage() {
             <div className="flex flex-col lg:flex-row items-start mt-8 gap-8">
               <div className="w-full lg:w-1/2 flex-col gap-8">
                 <div className="flex my-6 gap-5 justify-between lg:justify-start">
-                  <button className="btn hover:shadow-red-500 bg-red-500 text-white">
+                  <button
+                    className="btn hover:shadow-red-500 bg-red-500 text-white"
+                    onClick={() =>
+                      goToWatch(
+                        dataAnime?.episode?.first?.slug,
+                        dataAnime?.episode?.first?.episode,
+                        dataAnime?.episode?.first?.subepisode
+                      )
+                    }
+                  >
                     Watch Episode {dataAnime?.episode?.first?.episode}
                   </button>
-                  <button className="btn hover:shadow-red-500 bg-red-500 text-white">
+                  <button
+                    className="btn hover:shadow-red-500 bg-red-500 text-white"
+                    onClick={() =>
+                      goToWatch(
+                        dataAnime?.episode?.last?.slug,
+                        dataAnime?.episode?.last?.episode,
+                        dataAnime?.episode?.last?.subepisode
+                      )
+                    }
+                  >
                     Watch Episode {dataAnime?.episode?.last?.episode}
+                    {dataAnime?.episode?.last?.subepisode != '-'
+                      ? '.' + dataAnime?.episode?.last?.subepisode
+                      : ''}
                   </button>
                 </div>
                 <div className="p-4 bg-light shadow-2xl shadow-dark/10 text-sm">
@@ -139,9 +166,10 @@ function DetailPage() {
                     <div
                       key={i}
                       className="w-full h-[40px] text-nowrap flex items-center border-b border-red-500 cursor-pointer hover:pl-4 hover:bg-red-500 hover:text-light transition-all duration-200 ease-out "
-                      onClick={() => goToWatch(el.slug, el.episode)}
+                      onClick={() => goToWatch(el.slug, el.episode, el.subepisode)}
                     >
-                      Episode {el.episode} - {dataAnime?.info?.judul}
+                      Episode {el.episode}
+                      {el.subepisode != '-' ? '.' + el.subepisode : ''} - {dataAnime?.info?.judul}
                     </div>
                   ))}
                 </div>
