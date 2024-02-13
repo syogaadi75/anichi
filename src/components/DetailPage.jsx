@@ -61,7 +61,9 @@ function DetailPage() {
                   {dataAnime?.info?.judul}
                 </h2>
                 <div className="overflow-scroll">
-                  <p className="text-sm px-3 lg:px-2 lg:text-base">{dataAnime?.synopsis}</p>
+                  <p className="text-sm px-3 py-3 lg:py-0 lg:px-2 lg:text-base">
+                    {dataAnime?.synopsis}
+                  </p>
                 </div>
               </div>
             </div>
