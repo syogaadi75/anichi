@@ -13,6 +13,8 @@ function VideoPlayer() {
   const navigate = useNavigate()
   const [dataAnime, setDataAnime] = useState({})
   const [isLoading, setIsLoading] = useState(true)
+  const [isNextEps, setIsNextEps] = useState(null)
+  const [isPrevEps, setIsPrevEps] = useState(null)
   const [iframeLoaded, setIframeLoaded] = useState(false)
   const loadData = async (s, e, se) => {
     setIsLoading(true)
@@ -29,9 +31,24 @@ function VideoPlayer() {
       const res = await axios.get('https://anichi-api.vercel.app/tserver/get-video', {
         params: params
       })
+
+      const firstEps = res.data.episodes[res.data.episodes.length - 1]
+      const dataEpisode = res.data.episodes.find((e) => e.episode == episode)
+      const indexEps = res.data.episodes.indexOf(dataEpisode)
+      if (indexEps == '0') {
+        setIsNextEps(null)
+        setIsPrevEps('ada')
+      } else {
+        if (dataEpisode.episode == firstEps.episode) {
+          setIsPrevEps(null)
+        } else {
+          setIsPrevEps('ada')
+        }
+        setIsNextEps('ada')
+      }
+
       setDataAnime(res.data)
       setIsLoading(false)
-      console.log(res.data)
     } catch (error) {
       console.log(error)
     }
@@ -50,6 +67,16 @@ function VideoPlayer() {
 
   const goToWatch = (slug, episode) => {
     navigate(`/watch/${slug}/${episode}`)
+  }
+
+  const changeEpisode = (action) => {
+    if (action === 'next') {
+      const newEps = Number(episode) + 1
+      navigate(`/watch/${slug}/${newEps}`)
+    } else if (action === 'prev') {
+      const newEps = Number(episode) - 1
+      navigate(`/watch/${slug}/${newEps}`)
+    }
   }
 
   const changeResolution = (src, text) => {
@@ -76,12 +103,12 @@ function VideoPlayer() {
       ) : (
         <>
           <div>
-            <div className="protest text-2xl mb-6">
-              <span className="pr-5 pb-2 border-b-2 border-red-500">{dataAnime.title}</span>
+            <div className="protest text-xl lg:text-2xl mb-6">
+              <span className="pr-5 pb-2 ">{dataAnime.title}</span>
             </div>
             {!iframeLoaded && <div>Loading...</div>}
-            <div className="flex gap-8">
-              <div className="w-[60%] h-[450px]" id="iframe-container">
+            <div className="flex flex-col lg:flex-row gap-8">
+              <div className="w-full h-[200px] lg:w-[60%] lg:h-[450px]" id="iframe-container">
                 <iframe
                   id="iframe-video"
                   className="w-full h-full rounded-lg shadow-xl shadow-dark/50  bg-dark"
@@ -91,16 +118,36 @@ function VideoPlayer() {
                   allowFullScreen
                 ></iframe>
               </div>
-              <div className="w-[40%]">
+              <div className="w-full lg:w-[40%]">
                 <div className="flex gap-3">
-                  <button className="btn hover:shadow-red-500 bg-red-500 text-white flex items-center">
-                    <ChevronDoubleLeftIcon className="w-5 h-5" />
-                    <span>Prev</span>
-                  </button>
-                  <button className="btn hover:shadow-red-500 bg-red-500 text-white flex items-center">
-                    <span>Next</span>
-                    <ChevronDoubleRightIcon className="w-5 h-5" />
-                  </button>
+                  {isPrevEps == 'ada' ? (
+                    <button
+                      onClick={() => changeEpisode('prev')}
+                      className="btn hover:shadow-red-500 bg-red-500 text-white flex items-center"
+                    >
+                      <ChevronDoubleLeftIcon className="w-5 h-5" />
+                      <span>Prev</span>
+                    </button>
+                  ) : (
+                    <button className="btn cursor-not-allowed border-2 border-red-500 text-red-500 flex items-center">
+                      <ChevronDoubleLeftIcon className="w-5 h-5" />
+                      <span>Prev</span>
+                    </button>
+                  )}
+                  {isNextEps == 'ada' ? (
+                    <button
+                      onClick={() => changeEpisode('next')}
+                      className="btn hover:shadow-red-500 bg-red-500 text-white flex items-center"
+                    >
+                      <span>Next</span>
+                      <ChevronDoubleRightIcon className="w-5 h-5" />
+                    </button>
+                  ) : (
+                    <button className="btn cursor-not-allowed border-2 border-red-500 text-red-500 flex items-center">
+                      <span>Next</span>
+                      <ChevronDoubleRightIcon className="w-5 h-5" />
+                    </button>
+                  )}
                 </div>
                 <div className="protest mt-4 text-xl mb-2">Pilih Server Video</div>
                 <div className="flex flex-col-reverse gap-6">
