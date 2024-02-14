@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { MagnifyingGlassIcon, Bars3Icon } from '@heroicons/react/24/outline'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -7,6 +7,7 @@ gsap.registerPlugin(ScrollTrigger)
 
 function Navbar() {
   const [scrolled, setScrolled] = useState(false)
+  const searchInput = useRef()
   const navigate = useNavigate()
   useEffect(() => {
     gsap.to('#navbar', { duration: 0.5, y: 40, opacity: 1, delay: 0.5 })
@@ -47,6 +48,17 @@ function Navbar() {
     }
   }, [scrolled])
 
+  const searchAnime = () => {
+    const title = searchInput.current.value
+    const replace = title.replace(' ', '+')
+    navigate('/search?t=' + replace)
+  }
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      searchAnime()
+    }
+  }
+
   return (
     <div className="navbar bg-blue-500" id="navbar">
       <h2 className="nav-title" id="nav-title" onClick={() => navigate('/')}>
@@ -71,8 +83,14 @@ function Navbar() {
           </div>
         </div>
         <div className="nav-search">
-          <input className="search-input" type="text" placeholder="Search" />
-          <button className="btn-search group">
+          <input
+            ref={searchInput}
+            className="search-input"
+            type="text"
+            placeholder="Search"
+            onKeyDown={handleKeyPress}
+          />
+          <button className="btn-search group" onClick={searchAnime}>
             <MagnifyingGlassIcon
               className="w-4 h-4 text-primary group-hover:text-light"
               strokeWidth={4}

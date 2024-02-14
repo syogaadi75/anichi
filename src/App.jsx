@@ -8,11 +8,13 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import Watch from './pages/Watch'
 import Home from './pages/Home'
 import Detail from './pages/Detail'
+import Search from './pages/Search'
 
 function App() {
   return (
     <Router>
       <Routes>
+        <Route path="/search" element={<Search />} />
         <Route path="/watch/:slug/:episode" element={<Watch />} />
         <Route path="/anime/:slug" element={<Detail />} />
         <Route path="/" element={<Home />} />

@@ -5,49 +5,46 @@ import { ChevronDoubleRightIcon, PlayCircleIcon } from '@heroicons/react/24/soli
 import { useNavigate } from 'react-router-dom'
 import Card from './Card'
 
-function Recent() {
+function SearchData() {
+  const urlParams = new URLSearchParams(window.location.search)
+  const title = urlParams.get('t')
   const navigate = useNavigate()
-  const [recents, setRecents] = useState([])
+  const [animes, setAnimes] = useState([])
   const [page, setPage] = useState(1)
   const [isLoading, setIsLoading] = useState(true)
-  const loadData = async (navPage) => {
+  const loadData = async (theTitle) => {
     try {
-      const res = await axios.get('https://anichi-api.vercel.app/tserver/ongoing', {
-        params: {
-          page: navPage
-        }
+      const res = await axios.post('https://anichi-api.vercel.app/tserver/search', {
+        title: theTitle
       })
-      setRecents(res.data.list)
+      setAnimes(res.data.list)
       setIsLoading(false)
-      console.log(res.data.list)
     } catch (error) {
       console.log(error)
     }
   }
 
   useEffect(() => {
-    loadData(page)
-  }, [])
+    if (title) {
+      loadData(title)
+    }
+  }, [title])
 
   return (
     <div className="section" id="recent">
       <div className="protest text-xl">
-        <span className="pr-4 pb-2 border-b-2 border-red-500">New Release Anime</span>
+        <span className="pr-4 pb-2 border-b-2 border-red-500 capitalize">
+          search result for <span className="text-red-500">{title.replace('+', ' ')} </span>
+        </span>
       </div>
       {isLoading ? (
         'Loading...'
       ) : (
         <>
           <div className="recent-container">
-            {recents.map((el, i) => (
+            {animes.map((el, i) => (
               <Card data={el} key={i} />
             ))}
-          </div>
-          <div className="flex justify-center mt-8">
-            <button className="btn bg-red-500 text-light hover:shadow-red-500/50 ">
-              <div>See Others</div>
-              <ChevronDoubleRightIcon className="w-5 h-5" />
-            </button>
           </div>
         </>
       )}
@@ -55,4 +52,4 @@ function Recent() {
   )
 }
 
-export default Recent
+export default SearchData
