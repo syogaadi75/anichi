@@ -96,6 +96,10 @@ function VideoPlayer() {
     setIframeLoaded(true)
   }
 
+  const downloadAnime = (src) => {
+    window.open(src, '_blank')
+  }
+
   return (
     <div className="section" id="recent">
       {isLoading ? (
@@ -152,7 +156,7 @@ function VideoPlayer() {
                 <div className="protest mt-4 text-xl mb-2">Pilih Server Video</div>
                 <div className="flex flex-col-reverse gap-6">
                   {dataAnime?.servers?.map((el, i) => (
-                    <div className="p-4 shadow-xl shadow-dark/10 text-sm rounded-lg">
+                    <div key={i} className="p-4 shadow-xl shadow-dark/10 text-sm rounded-lg">
                       <div className="mb-2 font-semibold">Server {el.resolution}p</div>
                       <div className="flex flex-wrap gap-2">
                         {el?.list?.length > 0
@@ -169,6 +173,28 @@ function VideoPlayer() {
                     </div>
                   ))}
                 </div>
+              </div>
+            </div>
+            <div className="w-1/2 mt-8 lg:mt-12">
+              <div className="protest mt-4 text-xl mb-2">Download {dataAnime.title}</div>
+              <div className="flex flex-col-reverse gap-6">
+                {dataAnime?.downloads?.map((el, i) => (
+                  <div key={i} className="p-4 shadow-xl shadow-dark/10 text-sm rounded-lg">
+                    <div className="mb-2 font-semibold">{el.type}p</div>
+                    <div className="flex flex-wrap gap-2">
+                      {el?.sources?.length > 0
+                        ? el?.sources?.map((val, j) => (
+                            <button
+                              onClick={() => downloadAnime(val.src)}
+                              className="btn border border-red-500 text-red-500 capitalize hover:bg-red-500 hover:text-white hover:shadow-red-500"
+                            >
+                              {val.source}
+                            </button>
+                          ))
+                        : ''}
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
