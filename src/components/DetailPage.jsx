@@ -3,6 +3,7 @@ import axios from 'axios'
 import { motion } from 'framer-motion'
 import { ChevronDoubleRightIcon, ChevronDoubleLeftIcon, StarIcon } from '@heroicons/react/24/solid'
 import { useNavigate, useParams } from 'react-router-dom'
+import DefaultBanner from '../assets/default-banner.jpg'
 
 function DetailPage() {
   let { slug, episode } = useParams()
@@ -13,10 +14,8 @@ function DetailPage() {
     setIsLoading(true)
     try {
       const res = await axios.get('https://anichi-api.vercel.app/tserver/anime/' + theSlug)
-      console.log(res.data, 'res.data')
       setDataAnime(res.data)
       setIsLoading(false)
-      console.log(res.data)
     } catch (error) {
       console.log(error)
     }
@@ -42,8 +41,12 @@ function DetailPage() {
         'Loading...'
       ) : (
         <>
-          <div className="absolute top-0 left-0 lg:-left-1">
-            <img src={dataAnime?.banner} alt="banner" />
+          <div className="absolute top-0 left-0 lg:-left-1 max-h-[35vh] lg:h-[350px] w-full overflow-hidden">
+            <img
+              className="h-[35vh] lg:h-[350px] w-full object-cover"
+              src={dataAnime?.banner ? dataAnime?.banner : DefaultBanner}
+              alt="banner"
+            />
           </div>
           <div className="section z-20 relative" id="detail-page">
             <div className="flex flex-col gap-4 items-center lg:flex-row lg:gap-8 lg:items-end">

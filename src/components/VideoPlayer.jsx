@@ -48,6 +48,7 @@ function VideoPlayer() {
       }
 
       setDataAnime(res.data)
+      console.log(res.data, 'res.data')
       setIsLoading(false)
     } catch (error) {
       console.log(error)
@@ -115,7 +116,7 @@ function VideoPlayer() {
               <div className="w-full h-[200px] lg:w-[60%] lg:h-[450px]" id="iframe-container">
                 <iframe
                   id="iframe-video"
-                  className="w-full h-full rounded-lg shadow-xl shadow-dark/50  bg-dark"
+                  className="w-full h-full rounded-lg shadow-lg shadow-dark/50  bg-dark"
                   src={dataAnime.defaultSrc}
                   onLoad={handleIframeLoad}
                   ref={iframeRef}
@@ -156,7 +157,7 @@ function VideoPlayer() {
                 <div className="protest mt-4 text-xl mb-2">Pilih Server Video</div>
                 <div className="flex flex-col-reverse gap-6">
                   {dataAnime?.servers?.map((el, i) => (
-                    <div key={i} className="p-4 shadow-xl shadow-dark/10 text-sm rounded-lg">
+                    <div key={i} className="p-4 shadow-lg shadow-dark/10 text-sm rounded-lg">
                       <div className="mb-2 font-semibold">Server {el.resolution}p</div>
                       <div className="flex flex-wrap gap-2">
                         {el?.list?.length > 0
@@ -175,26 +176,46 @@ function VideoPlayer() {
                 </div>
               </div>
             </div>
-            <div className="w-1/2 mt-8 lg:mt-12">
-              <div className="protest mt-4 text-xl mb-2">Download {dataAnime.title}</div>
-              <div className="flex flex-col-reverse gap-6">
-                {dataAnime?.downloads?.map((el, i) => (
-                  <div key={i} className="p-4 shadow-xl shadow-dark/10 text-sm rounded-lg">
-                    <div className="mb-2 font-semibold">{el.type}p</div>
-                    <div className="flex flex-wrap gap-2">
-                      {el?.sources?.length > 0
-                        ? el?.sources?.map((val, j) => (
-                            <button
-                              onClick={() => downloadAnime(val.src)}
-                              className="btn border border-red-500 text-red-500 capitalize hover:bg-red-500 hover:text-white hover:shadow-red-500"
-                            >
-                              {val.source}
-                            </button>
-                          ))
-                        : ''}
-                    </div>
+            <div className="flex gap-4 flex-col lg:flex-row mt-8 lg:mt-12">
+              <div className="rounded-xl w-full lg:w-1/2 order-2 lg:order-1">
+                <div className="w-full rounded-xl p-6 bg-light shadow-2xl shadow-dark/10">
+                  <h2 className="text-xl protest mb-4">List Episode</h2>
+                  <div className="max-h-[400px] overflow-scroll">
+                    {dataAnime?.episodes?.map((el, i) => (
+                      <div
+                        key={i}
+                        className="w-full h-[40px] text-nowrap flex items-center border-b border-red-500 cursor-pointer hover:pl-4 hover:bg-red-500 hover:text-light transition-all duration-200 ease-out "
+                        onClick={() => goToWatch(el.slug, el.episode, el.subepisode)}
+                      >
+                        Episode {el.episode}
+                        {el.subEpisode != '-' ? '.' + el.subEpisode : ''} -{' '}
+                        {dataAnime?.title?.split('Episode')[0].trim()}
+                      </div>
+                    ))}
                   </div>
-                ))}
+                </div>
+              </div>
+              <div className="rounded-xl w-full lg:w-1/2 order-1 lg:order-2">
+                <div className="protest mt-4 text-xl mb-2">Download {dataAnime.title}</div>
+                <div className="flex flex-col-reverse gap-6">
+                  {dataAnime?.downloads?.map((el, i) => (
+                    <div key={i} className="p-4 shadow-lg shadow-dark/10 text-sm rounded-lg">
+                      <div className="mb-2 font-semibold">{el.type}</div>
+                      <div className="flex flex-wrap gap-2">
+                        {el?.sources?.length > 0
+                          ? el?.sources?.map((val, j) => (
+                              <button
+                                onClick={() => downloadAnime(val.src)}
+                                className="btn border border-red-500 text-red-500 capitalize hover:bg-red-500 hover:text-white hover:shadow-red-500"
+                              >
+                                {val.source}
+                              </button>
+                            ))
+                          : ''}
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>

@@ -10,7 +10,6 @@ function Home() {
       <Loading />
       <Navbar />
       <Recent />
-      <Recent />
     </div>
   )
 }
