@@ -49,7 +49,7 @@ function Card({ data }) {
 
   return (
     <motion.div className="recent-item" whileHover="hover" onClick={() => goToDetail(slug)}>
-      <motion.img variants={imgMotion} className="z-1" src={cover} alt="cover" />
+      <motion.img variants={imgMotion} className="z-1 object-cover" src={cover} alt="cover" />
       {episode && (
         <motion.div variants={hideTextMotion} className="eps-container">
           <motion.p className="truncate-text-2">Eps {episode}</motion.p>
