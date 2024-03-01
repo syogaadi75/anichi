@@ -55,13 +55,9 @@ function Recent() {
 
   return (
     <div className="section" id="recent">
-      <div className="protest text-xl flex-col lg:flex-row text-center lg:text-left gap-2 flex justify-between">
-        <div className="pr-4 pb-2 border-b-2 border-red-500">New Release Anime</div>
-        <div>
-          <button className="text-base flex items-center gap-1 py-2 px-3 rounded-lg bg-red-500 text-white shadow-lg shadow-red-500/70 hover:-translate-y-1 transition-all">
-            <span>Other Ongoing Anime</span>
-            <ChevronDoubleRightIcon className="w-5" strokeWidth={2} />
-          </button>
+      <div className="text-xl flex-col lg:flex-row text-center lg:text-left gap-2 flex justify-between">
+        <div className="pr-4 pb-2 takota text-3xl lg:text-5xl text-center w-full">
+          Rilis <span className="text-red-500">`|,</span> Terbaru
         </div>
       </div>
       {isLoading ? (
@@ -73,9 +69,12 @@ function Recent() {
               <Card data={el} key={i} />
             ))}
           </div>
-          <div className="flex justify-center mt-8 lg:hidden">
-            <button className="protest text-base flex items-center gap-1 py-2 px-3 rounded-lg bg-red-500 text-white shadow-lg shadow-red-500/70 hover:-translate-y-1 transition-all">
-              <span>Other Ongoing Anime</span>
+          <div className="flex justify-center mt-8 ">
+            <button
+              className="protest text-base flex items-center gap-1 py-2 px-3 rounded-lg bg-red-500 text-white shadow-lg shadow-red-500/70 hover:-translate-y-1 transition-all"
+              onClick={() => navigate('/ongoing')}
+            >
+              <span>Lihat Selengkapnya</span>
               <ChevronDoubleRightIcon className="w-5" strokeWidth={2} />
             </button>
           </div>
@@ -83,12 +82,8 @@ function Recent() {
       )}
 
       <div className="protest text-xl flex-col lg:flex-row text-center lg:text-left gap-2 flex justify-between mt-16 lg:mt-24">
-        <div className="pr-4 pb-2 border-b-2 border-red-500">Completed Anime</div>
-        <div>
-          <button className="text-base flex items-center gap-1 py-2 px-3 rounded-lg bg-red-500 text-white shadow-lg shadow-red-500/70 hover:-translate-y-1 transition-all">
-            <span>Other Completed Anime</span>
-            <ChevronDoubleRightIcon className="w-5" strokeWidth={2} />
-          </button>
+        <div className="pr-4 pb-2 takota text-3xl lg:text-5xl text-center w-full">
+          Sudah <span className="text-red-500">`|,</span> Tamat
         </div>
       </div>
       {isLoading ? (
@@ -100,9 +95,12 @@ function Recent() {
               <Card data={el} key={i} />
             ))}
           </div>
-          <div className="flex justify-center mt-8 lg:hidden">
-            <button className="protest text-base flex items-center gap-1 py-2 px-3 rounded-lg bg-red-500 text-white shadow-lg shadow-red-500/70 hover:-translate-y-1 transition-all">
-              <span>Other Completed Anime</span>
+          <div className="flex justify-center mt-8">
+            <button
+              className="protest text-base flex items-center gap-1 py-2 px-3 rounded-lg bg-red-500 text-white shadow-lg shadow-red-500/70 hover:-translate-y-1 transition-all"
+              onClick={() => navigate('/completed')}
+            >
+              <span>Lihat Selengkapnya</span>
               <ChevronDoubleRightIcon className="w-5" strokeWidth={2} />
             </button>
           </div>

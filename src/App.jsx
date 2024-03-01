@@ -9,6 +9,8 @@ import Watch from './pages/Watch'
 import Home from './pages/Home'
 import Detail from './pages/Detail'
 import Search from './pages/Search'
+import Ongoing from './pages/Ongoing'
+import Completed from './pages/Completed'
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
         <Route path="/search" element={<Search />} />
         <Route path="/watch/:slug" element={<Watch />} />
         <Route path="/anime/:slug" element={<Detail />} />
+        <Route path="/ongoing" element={<Ongoing />} />
+        <Route path="/completed" element={<Completed />} />
         <Route path="/" element={<Home />} />
       </Routes>
     </Router>

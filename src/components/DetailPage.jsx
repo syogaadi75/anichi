@@ -55,24 +55,10 @@ function DetailPage() {
                   />
                 </div>
               </div>
-              <div className="w-full h-[380px] z-10 -mt-20 pt-20 bg-light/70 shadow-2xl shadow-dark/10 rounded-xl backdrop-blur flex flex-col lg:pt-8 lg:p-6 lg:h-[260px]">
-                <h2 className="text-2xl px-3 lg:px-2 protest mb-2 lg:mb-4 text-dark drop-shadow shadow-red-500">
-                  {dataAnime?.info?.judul}
-                </h2>
-                <div className="overflow-scroll mb-3 mx-2 lg:mx-0 lg:mb-0">
-                  <p className="text-sm px-3 py-3 lg:py-0 lg:px-2 lg:text-base text-justify">
-                    {dataAnime?.synopsis?.length > 0
-                      ? dataAnime?.synopsis?.map((el) => <p className="mb-1">{el}</p>)
-                      : 'There is no synopsis for this anime yet'}
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="flex flex-col lg:flex-row items-start mt-8 gap-8">
-              <div className="w-full lg:w-1/2 flex-col gap-8">
-                <div className="flex my-6 gap-5 justify-between lg:justify-start">
+              <div className="flex flex-col w-full gap-4">
+                <div className="flex gap-5 protest">
                   <button
-                    className="btn hover:shadow-red-500 bg-red-500 text-white"
+                    className="btn hover:shadow-red-500 bg-red-500 text-white shadow-lg shadow-red-500/60"
                     onClick={() =>
                       goToWatch(
                         dataAnime?.episode?.first?.slug,
@@ -84,7 +70,7 @@ function DetailPage() {
                     First Episode
                   </button>
                   <button
-                    className="btn hover:shadow-red-500 bg-red-500 text-white"
+                    className="btn hover:shadow-red-500 bg-red-500 text-white shadow-lg shadow-red-500/60"
                     onClick={() =>
                       goToWatch(
                         dataAnime?.episode?.last?.slug,
@@ -96,6 +82,22 @@ function DetailPage() {
                     Last Episode
                   </button>
                 </div>
+                <div className="w-full max-h-[380px] z-10 pt-6 bg-light/70 shadow-2xl shadow-dark/10 rounded-xl backdrop-blur flex flex-col lg:pt-8 lg:p-6 lg:h-[260px]">
+                  <h2 className="text-2xl px-3 lg:px-2 protest mb-2 lg:mb-4 text-dark drop-shadow shadow-red-500">
+                    {dataAnime?.info?.judul}
+                  </h2>
+                  <div className="overflow-scroll mb-3 mx-2 lg:mx-0 lg:mb-0">
+                    <p className="text-sm px-3 py-3 lg:py-0 lg:px-2 lg:text-base text-justify">
+                      {dataAnime?.synopsis?.length > 0
+                        ? dataAnime?.synopsis?.map((el) => <p className="mb-1">{el}</p>)
+                        : 'There is no synopsis for this anime yet'}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-col lg:flex-row items-start mt-8 gap-8">
+              <div className="w-full lg:w-1/2 flex-col gap-8 order-2 lg:order-1">
                 <div className="p-4 bg-light shadow-2xl shadow-dark/10 text-sm">
                   <table>
                     <tr>
@@ -159,7 +161,7 @@ function DetailPage() {
                   </table>
                 </div>
               </div>
-              <div className="w-full p-6 bg-light shadow-2xl shadow-dark/10">
+              <div className="w-full p-6 bg-light shadow-2xl shadow-dark/10 order-1 lg:order-2">
                 <h2 className="text-xl protest mb-4">List Episode</h2>
                 <div className="max-h-[500px] overflow-scroll">
                   {dataAnime?.episodes?.map((el, i) => (

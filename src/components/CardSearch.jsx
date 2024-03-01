@@ -3,11 +3,9 @@ import { motion } from 'framer-motion'
 import { PlayCircleIcon, StarIcon } from '@heroicons/react/24/solid'
 import { useNavigate } from 'react-router-dom'
 
-function Card({ data }) {
+function CardSearch({ data }) {
   const navigate = useNavigate()
-  const { episode, title, slug, cover, date, day } = data
-  const days = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu']
-  const isDay = days.includes(day)
+  const { title, slug, cover, genres, rating, status } = data
 
   const imgMotion = {
     hover: {
@@ -53,28 +51,17 @@ function Card({ data }) {
     <motion.div>
       <motion.div className="flex items-center text-xs">
         <motion.div
-          className={`bg-primary py-1 px-2 lg:py-2 lg:px-3 rounded-tl-md lg:rounded-tl-lg flex items-center ${
-            isDay ? 'text-white' : 'text-yellow-400'
-          }`}
+          className={`bg-primary py-1 px-2 lg:py-2 lg:px-3 rounded-tl-md lg:rounded-tl-lg flex items-center text-yellow-400`}
         >
-          {!isDay && <StarIcon className="w-4 mr-1" />}
-          <motion.span>{day}</motion.span>
+          <StarIcon className="w-4 mr-1" />
+          <span>{rating}</span>
         </motion.div>
-        <motion.div className="text-primary py-1 px-2 lg:py-2 lg:px-3 bg-primary/10 rounded-tr-md lg:rounded-tr-lg w-full">
-          {date}
+        <motion.div className="text-primary py-1 px-2 lg:py-2 lg:px-3 bg-primary/10 rounded-tr-md lg:rounded-tr-lg w-full capitalize">
+          {status}
         </motion.div>
       </motion.div>
-      <motion.div
-        className="recent-item rounded-lg rounded-t-none"
-        whileHover="hover"
-        onClick={() => goToDetail(slug)}
-      >
+      <motion.div className="recent-item" whileHover="hover" onClick={() => goToDetail(slug)}>
         <motion.img variants={imgMotion} className="z-1 object-cover" src={cover} alt="cover" />
-        {episode && (
-          <motion.div variants={hideTextMotion} className="eps-container">
-            <motion.p className="truncate-text-2">Eps {episode}</motion.p>
-          </motion.div>
-        )}
         <motion.div variants={hideTextMotion} className="title-container">
           <motion.p className="truncate-text-2">{title}</motion.p>
         </motion.div>
@@ -82,16 +69,23 @@ function Card({ data }) {
           <div>
             <PlayCircleIcon className="w-12 h-12 text-red-400" />
           </div>
-          <div className="font-bold border-b-2 border-red-500 pb-2 px-4">
-            <p>Episode {episode}</p>
-          </div>
           <div className="font-semibold text-center truncate-text-3">
             <p>{title}</p>
           </div>
+        </motion.div>
+      </motion.div>
+      <motion.div className="flex items-center text-xs">
+        <motion.div className="text-primary h-[2.42rem] lg:h-12 py-1 px-2 lg:py-2 lg:px-3 bg-primary/10 rounded-b-md lg:rounded-b-lg w-[150px] lg:w-[220px] capitalize flex flex-wrap gap-2 truncate-text-2">
+          {genres?.map((genre, i) => (
+            <motion.span className="font-semibold">
+              {genre.text}
+              {i === genres.length - 1 ? '' : ' , '}
+            </motion.span>
+          ))}
         </motion.div>
       </motion.div>
     </motion.div>
   )
 }
 
-export default Card
+export default CardSearch

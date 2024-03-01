@@ -3,7 +3,7 @@ import axios from 'axios'
 import { motion } from 'framer-motion'
 import { ChevronDoubleRightIcon, PlayCircleIcon } from '@heroicons/react/24/solid'
 import { useNavigate } from 'react-router-dom'
-import Card from './Card'
+import CardSearch from './CardSearch'
 
 function SearchData() {
   const urlParams = new URLSearchParams(window.location.search)
@@ -15,7 +15,7 @@ function SearchData() {
   const loadData = async (theTitle) => {
     try {
       const res = await axios.post('https://anichi-api.vercel.app/tserver/search', {
-        title: theTitle
+        anime: theTitle
       })
       setAnimes(res.data.list)
       setIsLoading(false)
@@ -43,7 +43,7 @@ function SearchData() {
         <>
           <div className="recent-container">
             {animes.map((el, i) => (
-              <Card data={el} key={i} />
+              <CardSearch data={el} key={i} />
             ))}
           </div>
         </>
