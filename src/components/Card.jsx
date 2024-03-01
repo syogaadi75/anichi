@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 function Card({ data }) {
   const navigate = useNavigate()
   const { episode, title, slug, cover, date, day } = data
-  const days = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabut', 'Minggu']
+  const days = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu']
   const isDay = days.includes(day)
 
   const imgMotion = {
