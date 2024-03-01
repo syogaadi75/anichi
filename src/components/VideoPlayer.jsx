@@ -6,9 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 
 function VideoPlayer() {
   const base_url = 'https://animex.biz.id'
-  let { slug, episode } = useParams()
-  const urlParams = new URLSearchParams(window.location.search)
-  const subepisode = urlParams.get('se')
+  let { slug } = useParams()
   const iframeRef = useRef(null)
   const navigate = useNavigate()
   const [dataAnime, setDataAnime] = useState({})
@@ -20,32 +18,7 @@ function VideoPlayer() {
     setIsLoading(true)
     setIframeLoaded(false)
     try {
-      let params = {
-        slug: s,
-        episode: e,
-        subepisode: ''
-      }
-      if (se) {
-        params.subepisode = se
-      }
-      const res = await axios.get('https://anichi-api.vercel.app/tserver/get-video', {
-        params: params
-      })
-
-      const firstEps = res.data.episodes[res.data.episodes.length - 1]
-      const dataEpisode = res.data.episodes.find((e) => e.episode == episode)
-      const indexEps = res.data.episodes.indexOf(dataEpisode)
-      if (indexEps == '0') {
-        setIsNextEps(null)
-        setIsPrevEps('ada')
-      } else {
-        if (dataEpisode.episode == firstEps.episode) {
-          setIsPrevEps(null)
-        } else {
-          setIsPrevEps('ada')
-        }
-        setIsNextEps('ada')
-      }
+      const res = await axios.get('https://anichi-api.vercel.app/tserver/get-video/' + s)
 
       setDataAnime(res.data)
       console.log(res.data, 'res.data')
@@ -56,41 +29,27 @@ function VideoPlayer() {
   }
 
   useEffect(() => {
-    if (slug && episode) {
-      console.log(subepisode, 'subepisode')
-      if (subepisode) {
-        loadData(slug, episode, subepisode)
-      } else {
-        loadData(slug, episode)
-      }
+    if (slug) {
+      loadData(slug)
     }
-  }, [slug, episode, subepisode])
+  }, [slug])
 
-  const goToWatch = (slug, episode) => {
-    navigate(`/watch/${slug}/${episode}`)
+  const goToWatch = (slug) => {
+    navigate(`/watch/${slug}`)
   }
 
-  const changeEpisode = (action) => {
-    if (action === 'next') {
-      const newEps = Number(episode) + 1
-      navigate(`/watch/${slug}/${newEps}`)
-    } else if (action === 'prev') {
-      const newEps = Number(episode) - 1
-      navigate(`/watch/${slug}/${newEps}`)
-    }
+  const changeEpisode = (slug) => {
+    navigate(`/watch/${slug}`)
   }
 
-  const changeResolution = (src, text) => {
+  const changeResolution = async (src) => {
     setIframeLoaded(false)
-    axios.get(src).then((res) => {
-      if (text == 'AnimeX') {
-        let newSrc = base_url + '/anime/video2?video=' + btoa(res.data.data)
-        iframeRef.current.src = newSrc
-        console.log(res.data.data)
-      } else {
-        iframeRef.current.src = res.data.data
-      }
-    })
+    const res = await axios.get('https://anichi-api.vercel.app/tserver/changeServer/' + src)
+    try {
+      iframeRef.current.src = res.data.src
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const handleIframeLoad = () => {
@@ -117,7 +76,7 @@ function VideoPlayer() {
                 <iframe
                   id="iframe-video"
                   className="w-full h-full rounded-lg shadow-lg shadow-dark/50  bg-dark"
-                  src={dataAnime.defaultSrc}
+                  src={dataAnime.defaultPlayer}
                   onLoad={handleIframeLoad}
                   ref={iframeRef}
                   allowFullScreen
@@ -125,9 +84,9 @@ function VideoPlayer() {
               </div>
               <div className="w-full lg:w-[40%]">
                 <div className="flex gap-3">
-                  {isPrevEps == 'ada' ? (
+                  {dataAnime.navigation?.prev?.status ? (
                     <button
-                      onClick={() => changeEpisode('prev')}
+                      onClick={() => changeEpisode(dataAnime.navigation?.prev?.slug)}
                       className="btn hover:shadow-red-500 bg-red-500 text-white flex items-center"
                     >
                       <ChevronDoubleLeftIcon className="w-5 h-5" />
@@ -139,9 +98,9 @@ function VideoPlayer() {
                       <span>Prev</span>
                     </button>
                   )}
-                  {isNextEps == 'ada' ? (
+                  {dataAnime.navigation?.next?.status ? (
                     <button
-                      onClick={() => changeEpisode('next')}
+                      onClick={() => changeEpisode(dataAnime.navigation?.next?.slug)}
                       className="btn hover:shadow-red-500 bg-red-500 text-white flex items-center"
                     >
                       <span>Next</span>
@@ -158,15 +117,17 @@ function VideoPlayer() {
                 <div className="flex flex-col-reverse gap-6">
                   {dataAnime?.servers?.map((el, i) => (
                     <div key={i} className="p-4 shadow-lg shadow-dark/10 text-sm rounded-lg">
-                      <div className="mb-2 font-semibold">Server {el.resolution}p</div>
+                      <div className="mb-2 font-semibold">Server {el.resolution}</div>
                       <div className="flex flex-wrap gap-2">
-                        {el?.list?.length > 0
-                          ? el?.list?.map((val, j) => (
+                        {el?.server?.length > 0
+                          ? el?.server?.map((val, j) => (
                               <button
-                                onClick={() => changeResolution(val.src, val.text)}
+                                onClick={() => changeResolution(val.data)}
                                 className="btn border border-red-500 text-red-500 capitalize hover:bg-red-500 hover:text-white hover:shadow-red-500"
                               >
-                                {val.text == 'AnimeX' ? 'Anichi' : val.text}
+                                {val.text == 'ondesuhd' || val.text == 'ondesu3'
+                                  ? 'Anichi'
+                                  : val.text}
                               </button>
                             ))
                           : ''}
@@ -185,11 +146,9 @@ function VideoPlayer() {
                       <div
                         key={i}
                         className="w-full h-[40px] text-nowrap flex items-center border-b border-red-500 cursor-pointer hover:pl-4 hover:bg-red-500 hover:text-light transition-all duration-200 ease-out "
-                        onClick={() => goToWatch(el.slug, el.episode, el.subepisode)}
+                        onClick={() => goToWatch(el.slug)}
                       >
-                        Episode {el.episode}
-                        {el.subEpisode != '-' ? '.' + el.subEpisode : ''} -{' '}
-                        {dataAnime?.title?.split('Episode')[0].trim()}
+                        {el.text}
                       </div>
                     ))}
                   </div>
@@ -200,15 +159,15 @@ function VideoPlayer() {
                 <div className="flex flex-col-reverse gap-6">
                   {dataAnime?.downloads?.map((el, i) => (
                     <div key={i} className="p-4 shadow-lg shadow-dark/10 text-sm rounded-lg">
-                      <div className="mb-2 font-semibold">{el.type}</div>
+                      <div className="mb-2 font-semibold">{el.resolution}</div>
                       <div className="flex flex-wrap gap-2">
-                        {el?.sources?.length > 0
-                          ? el?.sources?.map((val, j) => (
+                        {el?.server?.length > 0
+                          ? el?.server?.map((val, j) => (
                               <button
                                 onClick={() => downloadAnime(val.src)}
                                 className="btn border border-red-500 text-red-500 capitalize hover:bg-red-500 hover:text-white hover:shadow-red-500"
                               >
-                                {val.source}
+                                {val.text}
                               </button>
                             ))
                           : ''}

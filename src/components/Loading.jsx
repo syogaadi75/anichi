@@ -8,7 +8,7 @@ function Loading() {
   }, [])
   return (
     <div
-      className="flex w-full h-screen justify-center items-center absolute top-0 left-0"
+      className="flex w-full h-screen justify-center items-center absolute top-0 left-0 bg-light"
       id="container-loading-screen"
     >
       <h2 className="text-dark text-6xl font-semibold takota tracking-widest" id="loading-screen">

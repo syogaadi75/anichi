@@ -95,7 +95,7 @@ body {
   @apply flex flex-wrap gap-4 mt-8 justify-center;
 }
 .recent-item {
-  @apply relative flex flex-col w-[150px] h-[200px] lg:w-[220px] lg:h-[305px] bg-contain bg-center overflow-hidden rounded-lg cursor-pointer  border-red-500;
+  @apply relative flex flex-col w-[150px] h-[200px] lg:w-[220px] lg:h-[305px] bg-contain bg-center overflow-hidden rounded-lg rounded-t-none cursor-pointer  border-red-500;
 }
 .recent-item .eps-container {
   @apply absolute bottom-10 lg:bottom-12 rounded-r-lg rounded-b-none h-7 bg-red-500 z-10 text-light px-4 flex items-center text-xs lg:text-sm;

@@ -27,12 +27,8 @@ function DetailPage() {
     }
   }, [slug])
 
-  const goToWatch = (slug, episode, subepisode) => {
-    if (subepisode != '-') {
-      navigate(`/watch/${slug}/${episode}?se=${subepisode}`)
-    } else {
-      navigate(`/watch/${slug}/${episode}`)
-    }
+  const goToWatch = (slug) => {
+    navigate(`/watch/${slug}`)
   }
 
   return (
@@ -65,7 +61,9 @@ function DetailPage() {
                 </h2>
                 <div className="overflow-scroll mb-3 mx-2 lg:mx-0 lg:mb-0">
                   <p className="text-sm px-3 py-3 lg:py-0 lg:px-2 lg:text-base text-justify">
-                    {dataAnime?.synopsis}
+                    {dataAnime?.synopsis?.length > 0
+                      ? dataAnime?.synopsis?.map((el) => <p className="mb-1">{el}</p>)
+                      : 'There is no synopsis for this anime yet'}
                   </p>
                 </div>
               </div>
@@ -83,7 +81,7 @@ function DetailPage() {
                       )
                     }
                   >
-                    Watch Episode {dataAnime?.episode?.first?.episode}
+                    First Episode
                   </button>
                   <button
                     className="btn hover:shadow-red-500 bg-red-500 text-white"
@@ -95,10 +93,7 @@ function DetailPage() {
                       )
                     }
                   >
-                    Watch Episode {dataAnime?.episode?.last?.episode}
-                    {dataAnime?.episode?.last?.subepisode != '-'
-                      ? '.' + dataAnime?.episode?.last?.subepisode
-                      : ''}
+                    Last Episode
                   </button>
                 </div>
                 <div className="p-4 bg-light shadow-2xl shadow-dark/10 text-sm">
@@ -170,11 +165,10 @@ function DetailPage() {
                   {dataAnime?.episodes?.map((el, i) => (
                     <div
                       key={i}
-                      className="w-full h-[40px] text-nowrap flex items-center border-b border-red-500 cursor-pointer hover:pl-4 hover:bg-red-500 hover:text-light transition-all duration-200 ease-out "
-                      onClick={() => goToWatch(el.slug, el.episode, el.subepisode)}
+                      className="w-full h-[40px] text-nowrap flex items-center border-b border-red-500 cursor-pointer hover:pl-4 hover:bg-red-500 hover:text-light transition-all duration-200 ease-out"
+                      onClick={() => goToWatch(el.slug)}
                     >
-                      Episode {el.episode}
-                      {el.subepisode != '-' ? '.' + el.subepisode : ''} - {dataAnime?.info?.judul}
+                      {el.title}
                     </div>
                   ))}
                 </div>
