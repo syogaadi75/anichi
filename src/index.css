@@ -152,3 +152,7 @@ body {
   @apply py-2 rounded-lg bg-red-500 text-white shadow-lg shadow-red-500/70;
 }
 /* End Pagination */
+
+.box_item_ads_popup {
+  display: none !important;
+}
