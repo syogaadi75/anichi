@@ -75,7 +75,7 @@ function CardSearch({ data }) {
         </motion.div>
       </motion.div>
       <motion.div className="flex items-center text-xs">
-        <motion.div className="text-primary h-[2.42rem] lg:h-12 py-1 px-2 lg:py-2 lg:px-3 bg-primary/10 rounded-b-md lg:rounded-b-lg w-[150px] lg:w-[220px] capitalize flex flex-wrap gap-2 truncate-text-2">
+        <motion.div className="text-primary h-[2.42rem] lg:h-[2.7rem] py-1 px-2 lg:py-2 lg:px-3 bg-primary/10 rounded-b-md lg:rounded-b-lg w-[150px] lg:w-[220px] capitalize flex flex-wrap gap-2 truncate-text-2">
           {genres?.map((genre, i) => (
             <motion.span className="font-semibold">
               {genre.text}

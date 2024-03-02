@@ -97,7 +97,7 @@ body {
 
 /* Recent */
 .recent-container {
-  @apply flex flex-wrap gap-4 mt-8 justify-center;
+  @apply flex flex-wrap gap-4 mt-8 justify-center min-h-screen;
 }
 .recent-item {
   @apply relative flex flex-col w-[150px] h-[200px] lg:w-[220px] lg:h-[305px] bg-contain bg-center overflow-hidden cursor-pointer  border-red-500;

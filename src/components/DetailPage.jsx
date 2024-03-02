@@ -67,7 +67,7 @@ function DetailPage() {
                       )
                     }
                   >
-                    First Episode
+                    Episode Pertama
                   </button>
                   <button
                     className="btn hover:shadow-red-500 bg-red-500 text-white shadow-lg shadow-red-500/60"
@@ -79,7 +79,7 @@ function DetailPage() {
                       )
                     }
                   >
-                    Last Episode
+                    Episode Terakhir
                   </button>
                 </div>
                 <div className="w-full max-h-[380px] z-10 pt-6 bg-light/70 shadow-2xl shadow-dark/10 rounded-xl backdrop-blur flex flex-col lg:pt-8 lg:p-6 lg:h-[260px]">
@@ -90,7 +90,7 @@ function DetailPage() {
                     <p className="text-sm px-3 py-3 lg:py-0 lg:px-2 lg:text-base text-justify">
                       {dataAnime?.synopsis?.length > 0
                         ? dataAnime?.synopsis?.map((el) => <p className="mb-1">{el}</p>)
-                        : 'There is no synopsis for this anime yet'}
+                        : 'Belum ada sinopsis untuk anime ini.'}
                     </p>
                   </div>
                 </div>
