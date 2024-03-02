@@ -1,13 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { PlayCircleIcon, StarIcon } from '@heroicons/react/24/solid'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
-function Card({ data }) {
+function Card({ data, recent }) {
   const navigate = useNavigate()
   const { episode, title, slug, cover, date, day } = data
   const days = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu']
   const isDay = days.includes(day)
+  const [loading, setLoading] = useState(false)
 
   const imgMotion = {
     hover: {
@@ -45,8 +47,23 @@ function Card({ data }) {
     }
   }
 
-  const goToDetail = (slug) => {
-    navigate(`/anime/${slug}`)
+  const goToDetail = async (slug) => {
+    if (recent) {
+      setLoading(true)
+      try {
+        const epsData = await axios.get(
+          'https://anichi-api.vercel.app/tserver/slug-last-eps/' + slug
+        )
+        const epsSlug = epsData.data.episode.last.slug
+        if (epsSlug) {
+          navigate(`/watch/${epsSlug}`)
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    } else {
+      navigate(`/anime/${slug}`)
+    }
   }
 
   return (
@@ -67,7 +84,7 @@ function Card({ data }) {
       <motion.div
         className="recent-item rounded-lg rounded-t-none"
         whileHover="hover"
-        onClick={() => goToDetail(slug)}
+        onClick={() => (loading ? console.log('masih loading woi') : goToDetail(slug, episode))}
       >
         <motion.img variants={imgMotion} className="z-1 object-cover" src={cover} alt="cover" />
         {episode && (
@@ -78,7 +95,21 @@ function Card({ data }) {
         <motion.div variants={hideTextMotion} className="title-container">
           <motion.p className="truncate-text-2">{title}</motion.p>
         </motion.div>
-        <motion.div className="full-hover opacity-0" variants={fullHoverMotion}>
+        {loading ? (
+          <motion.div className="full-hover opacity-100">
+            <div className="w-full absolute backdrop-blur-sm">
+              <div className="flex flex-col justify-center items-center h-screen ">
+                <div className="animate-spin rounded-full h-24 w-24 border-t-2 border-b-2 border-red-500"></div>
+                <div className="takota text-xl mt-2 text-light tracking-wider">
+                  Memuat <span className="text-red-500 pl-2">`</span> Data
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        ) : (
+          ''
+        )}
+        <motion.div className="full-hover opacity-0" variants={loading ? {} : fullHoverMotion}>
           <div>
             <PlayCircleIcon className="w-12 h-12 text-red-400" />
           </div>

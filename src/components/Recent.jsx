@@ -66,7 +66,7 @@ function Recent() {
         <>
           <div className="recent-container">
             {ongoing.map((el, i) => (
-              <Card data={el} key={i} />
+              <Card recent={true} data={el} key={i} />
             ))}
           </div>
           <div className="flex justify-center mt-8 ">
@@ -92,7 +92,7 @@ function Recent() {
         <>
           <div className="recent-container">
             {completed.map((el, i) => (
-              <Card data={el} key={i} />
+              <Card recent={false} data={el} key={i} />
             ))}
           </div>
           <div className="flex justify-center mt-8">
