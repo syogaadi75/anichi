@@ -100,9 +100,7 @@ function Card({ data, recent }) {
             <div className="w-full absolute backdrop-blur-sm">
               <div className="flex flex-col justify-center items-center h-screen ">
                 <div className="animate-spin rounded-full h-24 w-24 border-t-2 border-b-2 border-red-500"></div>
-                <div className="takota text-xl mt-2 text-light tracking-wider">
-                  Memuat <span className="text-red-500 pl-2">`</span> Data
-                </div>
+                <div className="takota text-xl mt-2 text-light tracking-wider">Memuat Data</div>
               </div>
             </div>
           </motion.div>
