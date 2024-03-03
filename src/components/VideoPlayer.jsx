@@ -91,13 +91,13 @@ function VideoPlayer() {
                   {dataAnime.navigation?.prev?.status ? (
                     <button
                       onClick={() => changeEpisode(dataAnime.navigation?.prev?.slug)}
-                      className="btn hover:shadow-red-500 bg-red-500 text-white flex items-center"
+                      className="btn hover:shadow-secondary bg-secondary text-white flex items-center"
                     >
                       <ChevronDoubleLeftIcon className="w-5 h-5" />
                       <span>Prev</span>
                     </button>
                   ) : (
-                    <button className="btn cursor-not-allowed border-2 border-red-500 text-red-500 flex items-center">
+                    <button className="btn cursor-not-allowed border-2 border-secondary text-secondary flex items-center">
                       <ChevronDoubleLeftIcon className="w-5 h-5" />
                       <span>Prev</span>
                     </button>
@@ -105,13 +105,13 @@ function VideoPlayer() {
                   {dataAnime.navigation?.next?.status ? (
                     <button
                       onClick={() => changeEpisode(dataAnime.navigation?.next?.slug)}
-                      className="btn hover:shadow-red-500 bg-red-500 text-white flex items-center"
+                      className="btn hover:shadow-secondary bg-secondary text-white flex items-center"
                     >
                       <span>Next</span>
                       <ChevronDoubleRightIcon className="w-5 h-5" />
                     </button>
                   ) : (
-                    <button className="btn cursor-not-allowed border-2 border-red-500 text-red-500 flex items-center">
+                    <button className="btn cursor-not-allowed border-2 border-secondary text-secondary flex items-center">
                       <span>Next</span>
                       <ChevronDoubleRightIcon className="w-5 h-5" />
                     </button>
@@ -127,7 +127,7 @@ function VideoPlayer() {
                           ? el?.server?.map((val, j) => (
                               <button
                                 onClick={() => changeResolution(val.data)}
-                                className="btn border border-red-500 text-red-500 capitalize hover:bg-red-500 hover:text-white hover:shadow-red-500"
+                                className="btn border border-secondary text-secondary capitalize hover:bg-secondary hover:text-white hover:shadow-secondary"
                               >
                                 {val.text == 'ondesuhd' || val.text == 'ondesu3'
                                   ? 'Anichi'
@@ -149,7 +149,7 @@ function VideoPlayer() {
                     {dataAnime?.episodes?.map((el, i) => (
                       <div
                         key={i}
-                        className="w-full h-[40px] text-nowrap flex items-center border-b border-red-500 cursor-pointer hover:pl-4 hover:bg-red-500 hover:text-light transition-all duration-200 ease-out "
+                        className="w-full h-[40px] text-nowrap flex items-center border-b border-secondary cursor-pointer hover:pl-4 hover:bg-secondary hover:text-light transition-all duration-200 ease-out "
                         onClick={() => goToWatch(el.slug)}
                       >
                         {el.text}
@@ -169,7 +169,7 @@ function VideoPlayer() {
                           ? el?.server?.map((val, j) => (
                               <button
                                 onClick={() => downloadAnime(val.src)}
-                                className="btn border border-red-500 text-red-500 capitalize hover:bg-red-500 hover:text-white hover:shadow-red-500"
+                                className="btn border border-secondary text-secondary capitalize hover:bg-secondary hover:text-white hover:shadow-secondary"
                               >
                                 {val.text}
                               </button>

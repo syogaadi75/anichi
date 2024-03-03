@@ -62,7 +62,7 @@ function Completed() {
       <div className="section" id="ongoing">
         <div className="flex-col lg:flex-row text-center lg:text-left gap-2 flex justify-center">
           <div className="pr-4 pb-2 text-3xl lg:text-5xl takota tracking-wider">
-            Anime <span className="text-red-500">`|,</span> Completed
+            Anime <span className="text-secondary">`|,</span> Completed
           </div>
         </div>
         {isLoading ? (
@@ -85,7 +85,7 @@ function Completed() {
                       className={`${
                         page === pageCount || page > pageCount
                           ? 'cursor-not-allowed bg-dark'
-                          : 'cursor-pointer bg-red-500 hover:shadow-lg hover:shadow-red-500/70 transition-all'
+                          : 'cursor-pointer bg-secondary hover:shadow-lg hover:shadow-secondary/70 transition-all'
                       } flex items-center gap-1 rounded-lg text-white py-2 px-2 text-sm`}
                     >
                       <span>Next</span>
@@ -97,7 +97,7 @@ function Completed() {
                       className={`${
                         page === 1
                           ? 'cursor-not-allowed bg-dark'
-                          : 'cursor-pointer bg-red-500 hover:shadow-lg hover:shadow-red-500/70 transition-all'
+                          : 'cursor-pointer bg-secondary hover:shadow-lg hover:shadow-secondary/70 transition-all'
                       } flex items-center gap-1 rounded-lg text-white py-2 px-2 text-sm`}
                     >
                       <ChevronDoubleLeftIcon className="w-4" strokeWidth={2} />

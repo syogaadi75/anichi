@@ -58,7 +58,7 @@ function Recent() {
     <div className="section" id="recent">
       <div className="text-xl flex-col lg:flex-row text-center lg:text-left gap-2 flex justify-between">
         <div className="pb-2 takota text-3xl lg:text-5xl text-center w-full">
-          Rilis <span className="text-red-500">`|,</span> Terbaru
+          Rilis <span className="text-secondary">`|,</span> Terbaru
         </div>
       </div>
 
@@ -73,7 +73,7 @@ function Recent() {
           </div>
           <div className="flex justify-center mt-8 ">
             <button
-              className="protest text-base flex items-center gap-1 py-2 px-3 rounded-lg bg-red-500 text-white shadow-lg shadow-red-500/70 hover:-translate-y-1 transition-all"
+              className="protest text-base flex items-center gap-1 py-2 px-3 rounded-lg bg-secondary text-white shadow-lg shadow-secondary/70 hover:-translate-y-1 transition-all"
               onClick={() => navigate('/ongoing')}
             >
               <span>Lihat Selengkapnya</span>
@@ -85,7 +85,7 @@ function Recent() {
 
       <div className="protest text-xl flex-col lg:flex-row text-center lg:text-left gap-2 flex justify-between mt-16 lg:mt-24">
         <div className="pb-2 takota text-3xl lg:text-5xl text-center w-full">
-          Sudah <span className="text-red-500">`|,</span> Tamat
+          Sudah <span className="text-secondary">`|,</span> Tamat
         </div>
       </div>
       {isLoading ? (
@@ -99,40 +99,13 @@ function Recent() {
           </div>
           <div className="flex justify-center mt-8">
             <button
-              className="protest text-base flex items-center gap-1 py-2 px-3 rounded-lg bg-red-500 text-white shadow-lg shadow-red-500/70 hover:-translate-y-1 transition-all"
+              className="protest text-base flex items-center gap-1 py-2 px-3 rounded-lg bg-secondary text-white shadow-lg shadow-secondary/70 hover:-translate-y-1 transition-all"
               onClick={() => navigate('/completed')}
             >
               <span>Lihat Selengkapnya</span>
               <ChevronDoubleRightIcon className="w-5" strokeWidth={2} />
             </button>
           </div>
-          {/* <ReactPaginate
-            breakLabel="..."
-            nextLabel={
-              <ChevronDoubleRightIcon
-                className={`${
-                  page === 4
-                    ? 'cursor-not-allowed bg-dark'
-                    : 'cursor-pointer bg-red-500 hover:shadow-lg hover:shadow-red-500/70 transition-all'
-                } w-9 h-9 rounded-lg text-white py-2 px-2`}
-              />
-            }
-            previousLabel={
-              <ChevronDoubleLeftIcon
-                className={`${
-                  page === 1
-                    ? 'cursor-not-allowed bg-dark'
-                    : 'cursor-pointer bg-red-500 hover:shadow-lg hover:shadow-red-500/70 transition-all'
-                } w-9 h-9 rounded-lg text-white py-2 px-2`}
-              />
-            }
-            onPageChange={handlePageClick}
-            pageCount={pageCount}
-            renderOnZeroPageCount={null}
-            activeClassName="pagination-active"
-            className="pagination-container"
-            pageLinkClassName="pagination-page"
-          /> */}
         </>
       )}
     </div>

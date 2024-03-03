@@ -35,14 +35,14 @@ function Navbar() {
     if (scrolled) {
       gsap.to('#navbar', {
         boxShadow: '0px 5px 20px 0px rgba(6,3,10,.3)',
-        backgroundColor: '#F9F1D5',
+        backgroundColor: '#FFFBEC',
         height: 65,
         duration: 0.3
       })
     } else {
       gsap.to('#navbar', {
         boxShadow: 'none',
-        backgroundColor: 'rgba(249, 241, 213, .6)',
+        backgroundColor: '#FFFBEC',
         height: 60,
         duration: 0.3
       })
@@ -87,9 +87,9 @@ function Navbar() {
 
   return (
     <>
-      <div className="navbar bg-blue-500" id="navbar">
+      <div className="navbar" id="navbar">
         <h2 className="nav-title" id="nav-title" onClick={() => navigate('/')}>
-          Ani<span className="text-red-500">`</span>chi
+          Ani<span className="text-secondary">`</span>chi
         </h2>
         <div className="nav-container">
           <div className="nav-item-container">
@@ -126,7 +126,7 @@ function Navbar() {
           </div>
           <div className="nav-hamburger">
             <button className="btn-hamburger" onClick={toggleMobileNavbar}>
-              <Bars3Icon className="w-8 h-8 text-red-500" />
+              <Bars3Icon className="w-8 h-8 text-secondary" />
             </button>
           </div>
         </div>
@@ -138,7 +138,7 @@ function Navbar() {
           </button>
         </div>
         <h2 className="nav-title text-center" id="nav-title" onClick={() => navigate('/')}>
-          Ani<span className="text-red-500">`</span>chi
+          Ani<span className="text-secondary">`</span>chi
         </h2>
         <div className="flex flex-col px-8 mt-8 protest text-xl gap-5">
           <a

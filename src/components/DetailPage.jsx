@@ -59,7 +59,7 @@ function DetailPage() {
               <div className="flex flex-col w-full gap-4">
                 <div className="flex gap-5 protest">
                   <button
-                    className="btn hover:shadow-red-500 bg-red-500 text-white shadow-lg shadow-red-500/60"
+                    className="btn hover:shadow-secondary bg-secondary text-white shadow-lg shadow-secondary/60"
                     onClick={() =>
                       goToWatch(
                         dataAnime?.episode?.first?.slug,
@@ -71,7 +71,7 @@ function DetailPage() {
                     Episode Pertama
                   </button>
                   <button
-                    className="btn hover:shadow-red-500 bg-red-500 text-white shadow-lg shadow-red-500/60"
+                    className="btn hover:shadow-secondary bg-secondary text-white shadow-lg shadow-secondary/60"
                     onClick={() =>
                       goToWatch(
                         dataAnime?.episode?.last?.slug,
@@ -84,7 +84,7 @@ function DetailPage() {
                   </button>
                 </div>
                 <div className="w-full max-h-[380px] z-10 pt-6 bg-light/70 shadow-2xl shadow-dark/10 rounded-xl backdrop-blur flex flex-col lg:pt-8 lg:p-6 lg:h-[260px]">
-                  <h2 className="text-2xl px-3 lg:px-2 protest mb-2 lg:mb-4 text-dark drop-shadow shadow-red-500">
+                  <h2 className="text-2xl px-3 lg:px-2 protest mb-2 lg:mb-4 text-dark drop-shadow shadow-secondary">
                     {dataAnime?.info?.judul}
                   </h2>
                   <div className="overflow-scroll mb-3 mx-2 lg:mx-0 lg:mb-0">
@@ -103,17 +103,17 @@ function DetailPage() {
                   <table>
                     <tr>
                       <td>Judul</td>
-                      <td className="px-2 text-red-500">:</td>
+                      <td className="px-2 text-secondary">:</td>
                       <td className="font-semibold">{dataAnime?.info?.judul}</td>
                     </tr>
                     <tr>
                       <td>Japanese</td>
-                      <td className="px-2 text-red-500">:</td>
+                      <td className="px-2 text-secondary">:</td>
                       <td className="font-semibold">{dataAnime?.info?.japanese}</td>
                     </tr>
                     <tr>
                       <td>Skor</td>
-                      <td className="px-2 text-red-500">:</td>
+                      <td className="px-2 text-secondary">:</td>
                       <td className="font-semibold flex items-center">
                         <StarIcon className="w-4 h-4 text-yellow-400 mr-1" />{' '}
                         {dataAnime?.info?.skor}
@@ -121,42 +121,42 @@ function DetailPage() {
                     </tr>
                     <tr>
                       <td>Produser</td>
-                      <td className="px-2 text-red-500">:</td>
+                      <td className="px-2 text-secondary">:</td>
                       <td className="font-semibold">{dataAnime?.info?.produser}</td>
                     </tr>
                     <tr>
                       <td className="text-nowrap">Tipe</td>
-                      <td className="px-2 text-red-500">:</td>
+                      <td className="px-2 text-secondary">:</td>
                       <td className="font-semibold">{dataAnime?.info?.tipe}</td>
                     </tr>
                     <tr>
                       <td className="text-nowrap">Status</td>
-                      <td className="px-2 text-red-500">:</td>
+                      <td className="px-2 text-secondary">:</td>
                       <td className="font-semibold">{dataAnime?.info?.status}</td>
                     </tr>
                     <tr>
                       <td className="text-nowrap">Total Episode</td>
-                      <td className="px-2 text-red-500">:</td>
+                      <td className="px-2 text-secondary">:</td>
                       <td className="font-semibold">{dataAnime?.info?.total_episode}</td>
                     </tr>
                     <tr>
                       <td className="text-nowrap">Durasi</td>
-                      <td className="px-2 text-red-500">:</td>
+                      <td className="px-2 text-secondary">:</td>
                       <td className="font-semibold">{dataAnime?.info?.durasi}</td>
                     </tr>
                     <tr>
                       <td className="text-nowrap">Tanggal Rilis</td>
-                      <td className="px-2 text-red-500">:</td>
+                      <td className="px-2 text-secondary">:</td>
                       <td className="font-semibold">{dataAnime?.info?.tanggal_rilis}</td>
                     </tr>
                     <tr>
                       <td className="text-nowrap">Studio</td>
-                      <td className="px-2 text-red-500">:</td>
+                      <td className="px-2 text-secondary">:</td>
                       <td className="font-semibold">{dataAnime?.info?.studio}</td>
                     </tr>
                     <tr>
                       <td className="text-nowrap">Genre</td>
-                      <td className="px-2 text-red-500">:</td>
+                      <td className="px-2 text-secondary">:</td>
                       <td className="font-semibold">{dataAnime?.info?.genre}</td>
                     </tr>
                   </table>
@@ -168,7 +168,7 @@ function DetailPage() {
                   {dataAnime?.episodes?.map((el, i) => (
                     <div
                       key={i}
-                      className="w-full h-[40px] text-nowrap flex items-center border-b border-red-500 cursor-pointer hover:pl-4 hover:bg-red-500 hover:text-light transition-all duration-200 ease-out"
+                      className="w-full h-[40px] text-nowrap flex items-center border-b border-secondary cursor-pointer hover:pl-4 hover:bg-secondary hover:text-light transition-all duration-200 ease-out"
                       onClick={() => goToWatch(el.slug)}
                     >
                       {el.title}

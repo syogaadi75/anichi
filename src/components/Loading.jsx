@@ -12,7 +12,7 @@ function FullLoading() {
       id="container-loading-screen"
     >
       <h2 className="text-dark text-6xl font-semibold takota tracking-widest" id="loading-screen">
-        Ani<span className="text-red-500">`</span>chi
+        Ani<span className="text-secondary">`</span>chi
       </h2>
     </div>
   )

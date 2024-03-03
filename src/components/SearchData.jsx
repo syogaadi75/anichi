@@ -34,8 +34,8 @@ function SearchData() {
   return (
     <div className="section" id="recent">
       <div className="protest text-xl">
-        <span className="pr-4 pb-2 border-b-2 border-red-500 capitalize">
-          search result for <span className="text-red-500">{title.replace('+', ' ')} </span>
+        <span className="pr-4 pb-2 border-b-2 border-secondary capitalize">
+          search result for <span className="text-secondary">{title.replace('+', ' ')} </span>
         </span>
       </div>
       {isLoading ? (

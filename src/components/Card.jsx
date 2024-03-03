@@ -99,7 +99,7 @@ function Card({ data, recent }) {
           <motion.div className="full-hover opacity-100">
             <div className="w-full absolute backdrop-blur-sm">
               <div className="flex flex-col justify-center items-center h-screen ">
-                <div className="animate-spin rounded-full h-24 w-24 border-t-2 border-b-2 border-red-500"></div>
+                <div className="animate-spin rounded-full h-24 w-24 border-t-2 border-b-2 border-secondary"></div>
                 <div className="takota text-xl mt-2 text-light tracking-wider">Memuat Data</div>
               </div>
             </div>
@@ -111,7 +111,7 @@ function Card({ data, recent }) {
           <div>
             <PlayCircleIcon className="w-12 h-12 text-red-400" />
           </div>
-          <div className="font-bold border-b-2 border-red-500 pb-2 px-4">
+          <div className="font-bold border-b-2 border-secondary pb-2 px-4">
             <p>Episode {episode}</p>
           </div>
           <div className="font-semibold text-center truncate-text-3">
