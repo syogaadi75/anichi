@@ -3,6 +3,8 @@ import axios from 'axios'
 import { motion } from 'framer-motion'
 import { ChevronDoubleRightIcon, ChevronDoubleLeftIcon } from '@heroicons/react/24/solid'
 import { useNavigate, useParams } from 'react-router-dom'
+import FullLoading from './Loading'
+import GifLoading from './GifLoading'
 
 function VideoPlayer() {
   const base_url = 'https://animex.biz.id'
@@ -63,19 +65,21 @@ function VideoPlayer() {
   return (
     <div className="section" id="recent">
       {isLoading ? (
-        'Loading...'
+        <FullLoading />
       ) : (
         <>
           <div>
             <div className="protest text-xl lg:text-2xl mb-6">
               <span className="pr-5 pb-2 ">{dataAnime.title}</span>
             </div>
-            {!iframeLoaded && <div>Loading...</div>}
             <div className="flex flex-col lg:flex-row gap-8">
               <div className="w-full h-[200px] lg:w-[60%] lg:h-[450px]" id="iframe-container">
+                {!iframeLoaded ? <GifLoading /> : ''}
                 <iframe
                   id="iframe-video"
-                  className="w-full h-full rounded-lg shadow-lg shadow-dark/50  bg-dark"
+                  className={`w-full h-full rounded-lg shadow-lg shadow-dark/50  bg-dark ${
+                    !iframeLoaded ? 'hidden' : ''
+                  }`}
                   src={dataAnime.defaultPlayer}
                   onLoad={handleIframeLoad}
                   ref={iframeRef}

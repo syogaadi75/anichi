@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import Loading from '../components/Loading'
 import Navbar from '../components/Navbar'
 import { useNavigate } from 'react-router-dom'
 import Card from '../components/Card'
@@ -12,6 +11,8 @@ import {
   ChevronDoubleRightIcon,
   PlayCircleIcon
 } from '@heroicons/react/24/outline'
+import FullLoading from '../components/Loading'
+import GifLoading from '../components/GifLoading'
 
 function Completed() {
   const navigate = useNavigate()
@@ -55,7 +56,7 @@ function Completed() {
 
   return (
     <div className="w-full min-h-screen bg-light">
-      <Loading />
+      <FullLoading />
       <Navbar />
 
       <div className="section" id="ongoing">
@@ -65,7 +66,7 @@ function Completed() {
           </div>
         </div>
         {isLoading ? (
-          'Loading...'
+          <GifLoading />
         ) : (
           <>
             <div className="recent-container">

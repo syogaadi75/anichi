@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { ChevronDoubleRightIcon, PlayCircleIcon } from '@heroicons/react/24/solid'
 import { useNavigate } from 'react-router-dom'
 import CardSearch from './CardSearch'
+import GifLoading from './GifLoading'
 
 function SearchData() {
   const urlParams = new URLSearchParams(window.location.search)
@@ -38,7 +39,7 @@ function SearchData() {
         </span>
       </div>
       {isLoading ? (
-        'Loading...'
+        <GifLoading />
       ) : (
         <>
           <div className="recent-container">

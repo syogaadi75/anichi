@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import gsap from 'gsap'
 
-function Loading() {
+function FullLoading() {
   useEffect(() => {
     gsap.to('#loading-screen', { duration: 0.7, y: 10, opacity: 0, delay: 0.3, display: 'none' })
     gsap.to('#container-loading-screen', { duration: 0.1, delay: 1.5, display: 'none' })
@@ -18,4 +18,4 @@ function Loading() {
   )
 }
 
-export default Loading
+export default FullLoading

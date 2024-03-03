@@ -11,6 +11,7 @@ import {
 import { useNavigate } from 'react-router-dom'
 import Card from './Card'
 import ReactPaginate from 'react-paginate'
+import GifLoading from './GifLoading'
 
 function Recent() {
   const navigate = useNavigate()
@@ -56,12 +57,13 @@ function Recent() {
   return (
     <div className="section" id="recent">
       <div className="text-xl flex-col lg:flex-row text-center lg:text-left gap-2 flex justify-between">
-        <div className="pr-4 pb-2 takota text-3xl lg:text-5xl text-center w-full">
+        <div className="pb-2 takota text-3xl lg:text-5xl text-center w-full">
           Rilis <span className="text-red-500">`|,</span> Terbaru
         </div>
       </div>
+
       {isLoading ? (
-        'Loading...'
+        <GifLoading />
       ) : (
         <>
           <div className="recent-container">
@@ -82,12 +84,12 @@ function Recent() {
       )}
 
       <div className="protest text-xl flex-col lg:flex-row text-center lg:text-left gap-2 flex justify-between mt-16 lg:mt-24">
-        <div className="pr-4 pb-2 takota text-3xl lg:text-5xl text-center w-full">
+        <div className="pb-2 takota text-3xl lg:text-5xl text-center w-full">
           Sudah <span className="text-red-500">`|,</span> Tamat
         </div>
       </div>
       {isLoading ? (
-        'Loading...'
+        <GifLoading />
       ) : (
         <>
           <div className="recent-container">

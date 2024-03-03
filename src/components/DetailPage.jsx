@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { ChevronDoubleRightIcon, ChevronDoubleLeftIcon, StarIcon } from '@heroicons/react/24/solid'
 import { useNavigate, useParams } from 'react-router-dom'
 import DefaultBanner from '../assets/default-banner.jpg'
+import GifLoading from './GifLoading'
 
 function DetailPage() {
   let { slug, episode } = useParams()
@@ -34,7 +35,7 @@ function DetailPage() {
   return (
     <>
       {isLoading ? (
-        'Loading...'
+        <GifLoading />
       ) : (
         <>
           <div className="absolute top-0 left-0 lg:-left-1 max-h-[35vh] lg:h-[350px] w-full overflow-hidden">
