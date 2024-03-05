@@ -81,7 +81,9 @@ function VideoPlayer() {
         <>
           <div>
             <div className="protest text-xl lg:text-2xl mb-6">
-              <span className="pr-5 pb-2 ">{dataAnime.title}</span>
+              <span className="pr-5 pb-2 ">
+                {dataAnime.title.replace('Subtitle Indonesia', '')}
+              </span>
             </div>
             <div className="flex flex-col lg:flex-row gap-8">
               <div className="w-full h-[200px] lg:w-[60%] lg:h-[450px]" id="iframe-container">
@@ -128,13 +130,13 @@ function VideoPlayer() {
                     </button>
                   )}
                 </div>
-                <div className="text-xl lg:text-3xl takota mt-4 mb-2 tracking-widest text-center lg:text-left">
+                <div className="text-2xl takota mt-8 lg:mt-4 mb-2 tracking-widest text-center lg:text-left">
                   Pilih Server Video
                 </div>
                 <div className="flex flex-col-reverse gap-6">
                   {dataAnime?.servers?.map((el, i) => (
-                    <div key={i} className="p-4 text-sm rounded-lg">
-                      <div className="mb-2 font-semibold">Server {el.resolution}</div>
+                    <div key={i} className=" text-sm rounded-lg">
+                      <div className="mb-2 tracking-wider protest">Server {el.resolution}</div>
                       <div className="flex flex-wrap gap-2">
                         {el?.server?.length > 0
                           ? el?.server?.map((val, j) => (
@@ -155,9 +157,9 @@ function VideoPlayer() {
               </div>
             </div>
             <div className="flex gap-4 flex-col lg:flex-row mt-8 lg:mt-12">
-              <div className="rounded-xl w-full lg:w-1/2 order-2 lg:order-1">
+              <div className="rounded-xl w-full lg:w-1/2">
                 <div className="w-full p-4 ">
-                  <h2 className="text-xl lg:text-3xl takota mb-4 tracking-widest text-center lg:text-left">
+                  <h2 className="text-2xl takota mb-4 tracking-widest text-center lg:text-left">
                     Episode List
                   </h2>
                   <div className="mb-2">
@@ -188,12 +190,14 @@ function VideoPlayer() {
                   </div>
                 </div>
               </div>
-              <div className="rounded-xl w-full lg:w-1/2 order-1 lg:order-2">
-                <div className="protest mt-4 text-xl mb-2">Download {dataAnime.title}</div>
+              <div className="rounded-xl w-full lg:w-1/2">
+                <div className="mt-4 text-2xl text-center lg:text-left takota tracking-wider mb-4">
+                  Download {dataAnime.title?.replace('Subtitle Indonesia', '')}
+                </div>
                 <div className="flex flex-col-reverse gap-6">
                   {dataAnime?.downloads?.map((el, i) => (
-                    <div key={i} className="p-4 shadow-lg shadow-dark/10 text-sm rounded-lg">
-                      <div className="mb-2 font-semibold">{el.resolution}</div>
+                    <div key={i} className=" text-sm rounded-lg">
+                      <div className="mb-2 protest tracking-wider text-md">{el.resolution}</div>
                       <div className="flex flex-wrap gap-2">
                         {el?.server?.length > 0
                           ? el?.server?.map((val, j) => (
