@@ -69,11 +69,9 @@ function DetailPage() {
           <div className="section z-20 relative" id="detail-page">
             <div className="flex flex-col gap-4 items-center lg:flex-row lg:gap-8 lg:items-start">
               <div className="w-full lg:w-1/4 flex items-center justify-center lg:items-start lg:justify-start">
-                <div className="bg-cover w-[200px] h-[280px] -mt-6 lg:w-[270px] lg:h-[360px] p-5 lg:mt-4 bg-light-70 rounded-xl circle-mask-image flex justify-center z-20">
+                <div className="bg-cover w-[200px] h-[280px] -mt-6 lg:w-[270px] lg:h-[360px] p-5 lg:mt-4 bg-light-70 rounded-xl flex justify-center z-20">
                   <img
-                    className={`rounded-xl w-[180px] h-[240px] lg:w-[220px] lg:h-[320px] ${
-                      isDarkMode ? 'two-linear-mask-image' : ''
-                    }`}
+                    className={`rounded-xl w-[180px] h-[240px] lg:w-[220px] lg:h-[320px] two-linear-mask-image`}
                     src={dataAnime?.cover}
                     alt="cover"
                   />

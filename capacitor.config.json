@@ -1,0 +1,8 @@
+{
+  "appId": "com.anichi.app",
+  "appName": "Anichi",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https"
+  }
+}
