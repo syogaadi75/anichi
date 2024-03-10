@@ -35,18 +35,27 @@ function SearchData() {
     <div className="section" id="recent">
       <div className="protest text-xl">
         <span className="pr-4 pb-2 border-b-2 border-secondary capitalize">
-          search result for <span className="text-secondary">{title.replace('+', ' ')} </span>
+          hasil pencarian <span className="text-secondary">{title.replace('+', ' ')} </span>
         </span>
       </div>
       {isLoading ? (
         <GifLoading />
       ) : (
         <>
-          <div className="recent-container">
-            {animes.map((el, i) => (
-              <CardSearch data={el} key={i} />
-            ))}
-          </div>
+          {animes.length > 0 ? (
+            <div className="recent-container">
+              {animes.map((el, i) => (
+                <CardSearch data={el} key={i} />
+              ))}
+            </div>
+          ) : (
+            <div className="w-full flex justify-center items-center mt-8">
+              <div className="tracking-wider">
+                Anime dengan judul <span className="text-secondary">{title.replace('+', ' ')}</span>{' '}
+                belum tersedia.
+              </div>
+            </div>
+          )}
         </>
       )}
     </div>
