@@ -20,12 +20,17 @@ function Navbar() {
   useEffect(() => {
     const htmlElement = document.querySelector('html')
     const storedTheme = localStorage.getItem('theme')
-    if (storedTheme === 'dark') {
+    if (storedTheme === 'dark' || storedTheme === 'ligth') {
+      if (storedTheme === 'dark') {
+        htmlElement.classList.add('dark')
+        setIsDarkMode(true)
+      } else {
+        htmlElement.classList.remove('dark')
+        setIsDarkMode(false)
+      }
+    } else {
       htmlElement.classList.add('dark')
       setIsDarkMode(true)
-    } else {
-      htmlElement.classList.remove('dark')
-      setIsDarkMode(false)
     }
 
     gsap.to('#navbar', { duration: 0.5, y: 40, opacity: 1, delay: 0.5 })
