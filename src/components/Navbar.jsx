@@ -64,7 +64,7 @@ function Navbar() {
         duration: 0.3
       })
     }
-  }, [scrolled])
+  }, [scrolled, isDarkMode])
 
   const searchAnime = () => {
     const title = searchInput.current.value
