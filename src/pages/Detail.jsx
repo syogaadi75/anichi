@@ -7,7 +7,7 @@ import FullLoading from '../components/Loading'
 
 function Detail() {
   return (
-    <div className="w-full min-h-screen bg-light">
+    <div className="w-full min-h-screen bg-light dark:bg-dark text-dark dark:text-light">
       <FullLoading />
       <Navbar />
       <DetailPage />

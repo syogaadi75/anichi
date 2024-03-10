@@ -8,10 +8,13 @@ function FullLoading() {
   }, [])
   return (
     <div
-      className="flex w-full h-screen justify-center items-center absolute top-0 left-0 bg-light"
+      className="flex w-full h-screen justify-center items-center absolute top-0 left-0 bg-light dark:bg-dark dark:text-light"
       id="container-loading-screen"
     >
-      <h2 className="text-dark text-6xl font-semibold takota tracking-widest" id="loading-screen">
+      <h2
+        className="text-dark dark:text-light text-6xl font-semibold takota tracking-widest"
+        id="loading-screen"
+      >
         Ani<span className="text-secondary">`</span>chi
       </h2>
     </div>

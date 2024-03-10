@@ -4,10 +4,12 @@ import { motion } from 'framer-motion'
 import { ChevronDoubleRightIcon, ChevronDoubleLeftIcon, StarIcon } from '@heroicons/react/24/solid'
 import { useNavigate, useParams } from 'react-router-dom'
 import DefaultBanner from '../assets/default-banner.jpg'
+import DarkBanner from '../assets/dark-banner.jpg'
 import GifLoading from './GifLoading'
 
 function DetailPage() {
   let { slug, episode } = useParams()
+  const [isDarkMode, setIsDarkMode] = useState(false)
   const navigate = useNavigate()
   const [dataAnime, setDataAnime] = useState({})
   const [isLoading, setIsLoading] = useState(true)
@@ -26,6 +28,12 @@ function DetailPage() {
 
   useEffect(() => {
     if (slug) {
+      const htmlElement = document.querySelector('html')
+      if (htmlElement.classList.contains('dark')) {
+        setIsDarkMode(true)
+      } else {
+        setIsDarkMode(false)
+      }
       loadData(slug)
     }
   }, [slug])
@@ -51,8 +59,10 @@ function DetailPage() {
         <>
           <div className="absolute top-0 left-0 lg:-left-1 max-h-[35vh] lg:h-[350px] w-full overflow-hidden linear-mask-image">
             <img
-              className="h-[35vh] lg:h-[350px] w-full object-cover"
-              src={dataAnime?.banner ? dataAnime?.banner : DefaultBanner}
+              className={`h-[35vh] lg:h-[350px] w-full object-cover ${
+                isDarkMode ? 'grayscale' : ''
+              }`}
+              src={isDarkMode ? DarkBanner : dataAnime?.banner ? dataAnime?.banner : DefaultBanner}
               alt="banner"
             />
           </div>
@@ -61,7 +71,9 @@ function DetailPage() {
               <div className="w-full lg:w-1/4 flex items-center justify-center lg:items-start lg:justify-start">
                 <div className="bg-cover w-[200px] h-[280px] -mt-6 lg:w-[270px] lg:h-[360px] p-5 lg:mt-4 bg-light-70 rounded-xl circle-mask-image flex justify-center z-20">
                   <img
-                    className="rounded-xl w-[180px] h-[240px] lg:w-[220px] lg:h-[320px]"
+                    className={`rounded-xl w-[180px] h-[240px] lg:w-[220px] lg:h-[320px] ${
+                      isDarkMode ? 'two-linear-mask-image' : ''
+                    }`}
                     src={dataAnime?.cover}
                     alt="cover"
                   />
@@ -70,7 +82,7 @@ function DetailPage() {
               <div className="flex flex-col w-full gap-2 lg:pt-9">
                 <div className="flex gap-5 protest justify-between lg:justify-normal">
                   <button
-                    className="btn hover:shadow-secondary bg-secondary text-white shadow-lg shadow-secondary/60"
+                    className="btn hover:shadow-secondary bg-secondary text-white shadow-xl shadow-secondary/60 dark:shadow-dark/20"
                     onClick={() =>
                       goToWatch(
                         dataAnime?.episode?.first?.slug,
@@ -82,7 +94,7 @@ function DetailPage() {
                     Episode Pertama
                   </button>
                   <button
-                    className="btn hover:shadow-secondary bg-secondary text-white shadow-lg shadow-secondary/60"
+                    className="btn hover:shadow-secondary bg-secondary text-white shadow-xl shadow-secondary/60 dark:shadow-dark/20"
                     onClick={() =>
                       goToWatch(
                         dataAnime?.episode?.last?.slug,
@@ -95,11 +107,11 @@ function DetailPage() {
                   </button>
                 </div>
                 <div className="w-full z-10 pt-6  rounded-xl flex flex-col ">
-                  <h2 className="title-shadow text-dark text-2xl lg:text-4xl takota mb-3 tracking-widest lg:pl-0 text-center lg:text-left">
+                  <h2 className="title-shadow text-dark dark:text-light text-2xl lg:text-4xl takota mb-3 tracking-widest lg:pl-0 text-center lg:text-left">
                     {dataAnime?.info?.judul}
                   </h2>
                   <div className="overflow-auto hidden lg:flex mb-3 mx-2 lg:-mx-1 lg:mb-0 mt-1 lg:max-h-[200px]">
-                    <p className="text-sm px-3 py-3 lg:py-0 lg:px-2 lg:text-base text-justify text-dark">
+                    <p className="text-sm px-3 py-3 lg:py-0 lg:px-2 lg:text-base text-justify text-dark dark:text-light">
                       {dataAnime?.synopsis?.length > 0
                         ? dataAnime?.synopsis?.map((el) => <p className="mb-1">{el}</p>)
                         : 'Belum ada sinopsis untuk anime ini.'}
@@ -110,7 +122,7 @@ function DetailPage() {
             </div>
             <div className="flex flex-col lg:flex-row items-start lg:mt-8 gap-8">
               <div className="w-full lg:w-1/2 flex-col gap-8 ">
-                <div className="p-4 bg-light">
+                <div className="p-4">
                   <h2 className="text-xl lg:text-3xl takota tracking-widest mb-4 text-center lg:text-left hidden lg:flex">
                     Details{' '}
                     {dataAnime?.info?.judul?.split(' ').length > 4 ? (
@@ -224,7 +236,7 @@ function DetailPage() {
                 </div>
                 <div className="max-h-[320px] lg:max-h-[300px] overflow-auto flex flex-col gap-2 pr-2">
                   {dataEpisodes.length === 0 ? (
-                    <div className="w-full py-2 px-2 rounded-md text-nowrap flex items-center cursor-pointer pl-2 shadow-md shadow-secondary/70 pl-4 bg-secondary text-light transition-all duration-200 ease-out text-sm lg:text-base protest tracking-wide">
+                    <div className="w-full py-2 px-2 rounded-md text-nowrap flex items-center cursor-pointer shadow-md shadow-secondary/70 pl-4 bg-secondary text-light transition-all duration-200 ease-out text-sm lg:text-base protest tracking-wide">
                       Episode tidak tersedia
                     </div>
                   ) : (

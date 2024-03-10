@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import gsap from 'gsap'
 import Loading from './components/Loading'
 import Navbar from './components/Navbar'
@@ -13,6 +13,16 @@ import Ongoing from './pages/Ongoing'
 import Completed from './pages/Completed'
 
 function App() {
+  useEffect(() => {
+    const htmlElement = document.querySelector('html')
+    const storedTheme = localStorage.getItem('theme')
+    if (storedTheme === 'ligth') {
+      htmlElement.classList.remove('dark')
+    } else {
+      htmlElement.classList.add('dark')
+    }
+  }, [])
+
   return (
     <Router>
       <Routes>

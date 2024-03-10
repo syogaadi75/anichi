@@ -70,14 +70,14 @@ function Card({ data, recent }) {
     <motion.div>
       <motion.div className="flex items-center text-xs">
         <motion.div
-          className={`bg-primary py-1 px-2 lg:py-2 lg:px-3 rounded-tl-md lg:rounded-tl-lg flex items-center ${
-            isDay ? 'text-white' : 'text-yellow-400'
+          className={`bg-primary dark:bg-light py-1 px-2 lg:py-2 lg:px-3 rounded-tl-md lg:rounded-tl-lg flex items-center ${
+            isDay ? 'text-white dark:text-dark' : 'text-yellow-400'
           }`}
         >
           {!isDay && <StarIcon className="w-4 mr-1" />}
-          <motion.span>{day}</motion.span>
+          <motion.span className="font-semibold">{day ? day : '-'}</motion.span>
         </motion.div>
-        <motion.div className="text-primary py-1 px-2 lg:py-2 lg:px-3 bg-primary/10 rounded-tr-md lg:rounded-tr-lg w-full">
+        <motion.div className="text-primary py-1 px-2 lg:py-2 lg:px-3 bg-primary/10 dark:bg-light/10 dark:text-light rounded-tr-md lg:rounded-tr-lg w-full">
           {date}
         </motion.div>
       </motion.div>
@@ -86,10 +86,14 @@ function Card({ data, recent }) {
         whileHover="hover"
         onClick={() => (loading ? console.log('masih loading woi') : goToDetail(slug, episode))}
       >
-        <motion.img variants={imgMotion} className="z-1 object-cover" src={cover} alt="cover" />
+        <motion.div className="two-linear-mask-image">
+          <motion.img variants={imgMotion} className="z-1 object-cover" src={cover} alt="cover" />
+        </motion.div>
         {episode && (
           <motion.div variants={hideTextMotion} className="eps-container">
-            <motion.p className="truncate-text-2">Eps {episode}</motion.p>
+            <motion.p className="truncate-text-2">
+              <motion.span className="hidden lg:inline">Eps</motion.span> {episode}
+            </motion.p>
           </motion.div>
         )}
         <motion.div variants={hideTextMotion} className="title-container">

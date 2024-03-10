@@ -73,7 +73,7 @@ function Recent() {
           </div>
           <div className="flex justify-center mt-8 ">
             <button
-              className="protest text-base flex items-center gap-1 py-2 px-3 rounded-lg bg-secondary text-white shadow-lg shadow-secondary/70 hover:-translate-y-1 transition-all"
+              className="protest text-base flex items-center gap-1 py-2 px-3 rounded-lg bg-secondary text-white shadow-lg shadow-secondary/70 dark:shadow-none hover:-translate-y-1 transition-all"
               onClick={() => navigate('/ongoing')}
             >
               <span>Lihat Selengkapnya</span>
@@ -99,7 +99,7 @@ function Recent() {
           </div>
           <div className="flex justify-center mt-8">
             <button
-              className="protest text-base flex items-center gap-1 py-2 px-3 rounded-lg bg-secondary text-white shadow-lg shadow-secondary/70 hover:-translate-y-1 transition-all"
+              className="protest text-base flex items-center gap-1 py-2 px-3 rounded-lg bg-secondary text-white shadow-lg shadow-secondary/70 hover:-translate-y-1 transition-all dark:shadow-none"
               onClick={() => navigate('/completed')}
             >
               <span>Lihat Selengkapnya</span>
