@@ -19,9 +19,12 @@ function Navbar() {
   const navigate = useNavigate()
   useEffect(() => {
     const htmlElement = document.querySelector('html')
-    if (htmlElement.classList.contains('dark')) {
+    const storedTheme = localStorage.getItem('theme')
+    if (storedTheme === 'dark') {
+      htmlElement.classList.add('dark')
       setIsDarkMode(true)
     } else {
+      htmlElement.classList.remove('dark')
       setIsDarkMode(false)
     }
 
@@ -106,8 +109,8 @@ function Navbar() {
       htmlElement.classList.add('dark')
       localStorage.setItem('theme', 'dark')
     } else {
-      localStorage.setItem('theme', 'ligth')
       htmlElement.classList.remove('dark')
+      localStorage.setItem('theme', 'ligth')
     }
   }
 

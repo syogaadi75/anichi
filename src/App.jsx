@@ -13,15 +13,15 @@ import Ongoing from './pages/Ongoing'
 import Completed from './pages/Completed'
 
 function App() {
-  useEffect(() => {
-    const htmlElement = document.querySelector('html')
-    const storedTheme = localStorage.getItem('theme')
-    if (storedTheme === 'ligth') {
-      htmlElement.classList.remove('dark')
-    } else {
-      htmlElement.classList.add('dark')
-    }
-  }, [])
+  // useEffect(() => {
+  //   const htmlElement = document.querySelector('html')
+  //   const storedTheme = localStorage.getItem('theme')
+  //   if (storedTheme === 'ligth') {
+  //     htmlElement.classList.remove('dark')
+  //   } else {
+  //     htmlElement.classList.add('dark')
+  //   }
+  // }, [])
 
   return (
     <Router>
