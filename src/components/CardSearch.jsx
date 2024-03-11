@@ -63,7 +63,7 @@ function CardSearch({ data }) {
       <motion.div className="recent-item" whileHover="hover" onClick={() => goToDetail(slug)}>
         <motion.img
           variants={imgMotion}
-          className="z-1 object-cover two-linear-mask-image"
+          className="z-1 object-cover linear-mask-image"
           src={cover}
           alt="cover"
         />

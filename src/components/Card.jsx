@@ -86,7 +86,7 @@ function Card({ data, recent }) {
         whileHover="hover"
         onClick={() => (loading ? console.log('masih loading woi') : goToDetail(slug, episode))}
       >
-        <motion.div className="two-linear-mask-image">
+        <motion.div className="linear-mask-image">
           <motion.img variants={imgMotion} className="z-1 object-cover" src={cover} alt="cover" />
         </motion.div>
         {episode && (
