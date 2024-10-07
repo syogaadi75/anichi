@@ -132,7 +132,7 @@ function Navbar() {
                 Home
               </a>
             </div>
-            <div className="nav-items group">
+            {/* <div className="nav-items group">
               <a href="javascript:;" className="nav-item" onClick={() => navigate('/ongoing')}>
                 Ongoing Anime
               </a>
@@ -141,7 +141,7 @@ function Navbar() {
               <a href="javascript:;" className="nav-item" onClick={() => navigate('/completed')}>
                 Completed Anime
               </a>
-            </div>
+            </div> */}
           </div>
           <div className="nav-search">
             <input

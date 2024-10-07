@@ -20,6 +20,7 @@ function Recent() {
   const [pageCount, setPageCount] = useState(0)
   const [page, setPage] = useState(1)
   const [isLoading, setIsLoading] = useState(true)
+  const [navigation, setNavigation] = useState({})
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -28,15 +29,13 @@ function Recent() {
     })
   }
 
-  const loadData = async (navPage) => {
+  const loadData = async (url) => {
+    setIsLoading(true)
     try {
-      const res = await axios.get('https://anichi-api.vercel.app/tserver/recent', {
-        params: {
-          page: navPage
-        }
-      })
-      setOngoing(res.data.ongoing)
-      setCompleted(res.data.completed)
+      const encode = btoa(url)
+      const res = await axios.get('https://anichi-api.vercel.app/sserver/home?url='+url)
+      setOngoing(res.data.animes) 
+      setNavigation(res.data.navigation)
       setIsLoading(false)
       scrollToTop()
     } catch (error) {
@@ -45,7 +44,7 @@ function Recent() {
   }
 
   useEffect(() => {
-    loadData(page)
+    loadData(`https://samehadaku.today`)
   }, [])
 
   // const handlePageClick = (event) => {
@@ -71,43 +70,28 @@ function Recent() {
               <Card recent={true} data={el} key={i} />
             ))}
           </div>
-          <div className="flex justify-center mt-8 ">
+          <div className="flex justify-center mt-8 gap-4">
+          { navigation?.prev.status ? (
             <button
               className="protest text-base flex items-center gap-1 py-2 px-3 rounded-lg bg-secondary text-white shadow-lg shadow-secondary/70 dark:shadow-none hover:-translate-y-1 transition-all"
-              onClick={() => navigate('/ongoing')}
+              onClick={() => loadData(navigation.prev.slug)}
             >
-              <span>Lihat Selengkapnya</span>
-              <ChevronDoubleRightIcon className="w-5" strokeWidth={2} />
+              <ChevronDoubleLeftIcon className="w-5" strokeWidth={2} />
+              <span>Prev</span>
             </button>
-          </div>
-        </>
-      )}
-
-      <div className="protest text-xl flex-col lg:flex-row text-center lg:text-left gap-2 flex justify-between mt-16 lg:mt-24">
-        <div className="pb-2 takota text-3xl lg:text-5xl text-center w-full">
-          Sudah <span className="text-secondary">`|,</span> Tamat
-        </div>
-      </div>
-      {isLoading ? (
-        <GifLoading />
-      ) : (
-        <>
-          <div className="recent-container">
-            {completed.map((el, i) => (
-              <Card recent={false} data={el} key={i} />
-            ))}
-          </div>
-          <div className="flex justify-center mt-8">
+          ) : '' }
+          { navigation?.next.status ? (
             <button
-              className="protest text-base flex items-center gap-1 py-2 px-3 rounded-lg bg-secondary text-white shadow-lg shadow-secondary/70 hover:-translate-y-1 transition-all dark:shadow-none"
-              onClick={() => navigate('/completed')}
+              className="protest text-base flex items-center gap-1 py-2 px-3 rounded-lg bg-secondary text-white shadow-lg shadow-secondary/70 dark:shadow-none hover:-translate-y-1 transition-all"
+              onClick={() => loadData(navigation.next.slug)}
             >
-              <span>Lihat Selengkapnya</span>
+              <span>Next</span>
               <ChevronDoubleRightIcon className="w-5" strokeWidth={2} />
             </button>
+          ) : '' }
           </div>
         </>
-      )}
+      )} 
     </div>
   )
 }

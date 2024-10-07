@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 
 function CardSearch({ data }) {
   const navigate = useNavigate()
-  const { title, slug, cover, genres, rating, status } = data
+  const { title, slug, cover, episode } = data
 
   const imgMotion = {
     hover: {
@@ -43,30 +43,28 @@ function CardSearch({ data }) {
     }
   }
 
-  const goToDetail = (slug) => {
-    navigate(`/anime/${slug}`)
+  const goToDetail = async (slug) => {
+    const encode = btoa(slug)
+    navigate(`/anime/${encode}`) 
   }
 
   return (
     <motion.div>
-      <motion.div className="flex items-center text-xs">
-        <motion.div
-          className={`bg-primary dark:bg-light py-1 px-2 lg:py-2 lg:px-3 rounded-tl-md lg:rounded-tl-lg flex items-center font-semibold text-yellow-500`}
-        >
-          <StarIcon className="w-4 mr-1" />
-          <span>{rating}</span>
+      <motion.div
+        className="recent-item rounded-lg"
+        whileHover="hover"
+        onClick={() => (goToDetail(slug))}
+      >
+        <motion.div className="linear-mask-image">
+          <motion.img variants={imgMotion} className="z-1 object-cover" src={cover} alt="cover" />
         </motion.div>
-        <motion.div className="text-primary py-1 px-2 lg:py-2 lg:px-3 bg-primary/10 dark:bg-light/10 dark:text-light rounded-tr-md lg:rounded-tr-lg w-full">
-          {status}
-        </motion.div>
-      </motion.div>
-      <motion.div className="recent-item" whileHover="hover" onClick={() => goToDetail(slug)}>
-        <motion.img
-          variants={imgMotion}
-          className="z-1 object-cover linear-mask-image"
-          src={cover}
-          alt="cover"
-        />
+        {episode && (
+          <motion.div variants={hideTextMotion} className="eps-container">
+            <motion.p className="truncate-text-2">
+              <motion.span className="inline">{episode}</motion.span> 
+            </motion.p>
+          </motion.div>
+        )}
         <motion.div variants={hideTextMotion} className="title-container">
           <motion.p className="truncate-text-2">{title}</motion.p>
         </motion.div>
@@ -74,19 +72,12 @@ function CardSearch({ data }) {
           <div>
             <PlayCircleIcon className="w-12 h-12 text-red-400" />
           </div>
+          <div className="font-bold border-b-2 border-secondary pb-2 px-4">
+            <p>Episode {episode}</p>
+          </div>
           <div className="font-semibold text-center truncate-text-3">
             <p>{title}</p>
           </div>
-        </motion.div>
-      </motion.div>
-      <motion.div className="flex items-center text-xs">
-        <motion.div className="text-primary dark:text-secondary h-[2.42rem] lg:h-[2.7rem] py-1 px-2 lg:py-2 lg:px-3  rounded-b-md lg:rounded-b-lg w-[150px] lg:w-[220px] capitalize flex flex-wrap gap-2 truncate-text-2">
-          {genres?.map((genre, i) => (
-            <motion.span className="font-semibold">
-              {genre.text}
-              {i === genres.length - 1 ? '' : ' , '}
-            </motion.span>
-          ))}
         </motion.div>
       </motion.div>
     </motion.div>

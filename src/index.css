@@ -51,6 +51,19 @@ body {
   mask-image: radial-gradient(circle, #000, rgba(0, 0, 0, 0));
 }
 
+/* Tabs */
+.react-tabs__tab-list {
+  @apply flex flex-row gap-2
+} 
+
+.react-tabs__tab {
+  @apply text-secondary bg-secondary/5 text-sm lg:text-base font-semibold cursor-pointer px-4 py-2 rounded-lg mb-8 select-none outline-none;
+}
+
+.react-tabs__tab--selected {
+  @apply text-white bg-secondary shadow-lg shadow-secondary/40;
+}
+
 /* Navbar */
 .navbar {
   z-index: 99999999;

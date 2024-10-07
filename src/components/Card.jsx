@@ -6,9 +6,7 @@ import axios from 'axios'
 
 function Card({ data, recent }) {
   const navigate = useNavigate()
-  const { episode, title, slug, cover, date, day } = data
-  const days = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu']
-  const isDay = days.includes(day)
+  const { episode, title, slug, cover} = data
   const [loading, setLoading] = useState(false)
 
   const imgMotion = {
@@ -50,14 +48,8 @@ function Card({ data, recent }) {
   const goToDetail = async (slug) => {
     if (recent) {
       setLoading(true)
-      try {
-        const epsData = await axios.get(
-          'https://anichi-api.vercel.app/tserver/slug-last-eps/' + slug
-        )
-        const epsSlug = epsData.data.episode.last.slug
-        if (epsSlug) {
-          navigate(`/watch/${epsSlug}`)
-        }
+      try { 
+        navigate(`/watch/${btoa(slug)}`) 
       } catch (error) {
         console.log(error)
       }
@@ -68,23 +60,10 @@ function Card({ data, recent }) {
 
   return (
     <motion.div>
-      <motion.div className="flex items-center text-xs">
-        <motion.div
-          className={`bg-primary dark:bg-light py-1 px-2 lg:py-2 lg:px-3 rounded-tl-md lg:rounded-tl-lg flex items-center ${
-            isDay ? 'text-white dark:text-dark' : 'text-yellow-400'
-          }`}
-        >
-          {!isDay && <StarIcon className="w-4 mr-1" />}
-          <motion.span className="font-semibold">{day ? day : '-'}</motion.span>
-        </motion.div>
-        <motion.div className="text-primary py-1 px-2 lg:py-2 lg:px-3 bg-primary/10 dark:bg-light/10 dark:text-light rounded-tr-md lg:rounded-tr-lg w-full">
-          {date}
-        </motion.div>
-      </motion.div>
       <motion.div
-        className="recent-item rounded-lg rounded-t-none"
+        className="recent-item rounded-lg"
         whileHover="hover"
-        onClick={() => (loading ? console.log('masih loading woi') : goToDetail(slug, episode))}
+        onClick={() => (loading ? console.log('masih loading woi') : goToDetail(slug))}
       >
         <motion.div className="linear-mask-image">
           <motion.img variants={imgMotion} className="z-1 object-cover" src={cover} alt="cover" />
@@ -92,7 +71,7 @@ function Card({ data, recent }) {
         {episode && (
           <motion.div variants={hideTextMotion} className="eps-container">
             <motion.p className="truncate-text-2">
-              <motion.span className="hidden lg:inline">Eps</motion.span> {episode}
+              <motion.span className="hidden lg:inline">{episode}</motion.span> 
             </motion.p>
           </motion.div>
         )}

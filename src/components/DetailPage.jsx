@@ -17,7 +17,8 @@ function DetailPage() {
   const loadData = async (theSlug) => {
     setIsLoading(true)
     try {
-      const res = await axios.get('https://anichi-api.vercel.app/tserver/anime/' + theSlug)
+      const decode = atob(theSlug)
+      const res = await axios.get('https://anichi-api.vercel.app/sserver/detail?url=' + decode)
       setDataAnime(res.data)
       setDataEpisodes(res.data.episodes)
       setIsLoading(false)
@@ -39,7 +40,8 @@ function DetailPage() {
   }, [slug])
 
   const goToWatch = (slug) => {
-    navigate(`/watch/${slug}`)
+    const encode = btoa(slug)
+    navigate(`/watch/${encode}`)
   }
 
   const searchEpisode = (text) => {
@@ -69,10 +71,10 @@ function DetailPage() {
           <div className="section z-20 relative" id="detail-page">
             <div className="flex flex-col gap-4 items-center lg:flex-row lg:gap-8 lg:items-start">
               <div className="w-full lg:w-1/4 flex items-center justify-center lg:items-start lg:justify-start">
-                <div className="w-[200px] h-[280px] -mt-6 lg:w-[270px] lg:h-[360px] p-5 lg:mt-4 rounded-xl flex justify-center z-20 linear-mask-image">
+                <div className="w-[200px] h-[280px] -mt-6 lg:w-[270px] lg:h-[360px] p-5 lg:mt-4 rounded-xl flex justify-center z-20 ">
                   <img
                     className={`rounded-xl w-[180px] h-[240px] lg:w-[220px] lg:h-[320px] object-cover`}
-                    src={dataAnime?.cover}
+                    src={dataAnime?.detail_anime.cover}
                     alt="cover"
                   />
                 </div>
@@ -82,11 +84,7 @@ function DetailPage() {
                   <button
                     className="btn hover:shadow-secondary bg-secondary text-white shadow-xl shadow-secondary/60 dark:shadow-dark/20"
                     onClick={() =>
-                      goToWatch(
-                        dataAnime?.episode?.first?.slug,
-                        dataAnime?.episode?.first?.episode,
-                        dataAnime?.episode?.first?.subepisode
-                      )
+                      goToWatch(dataAnime?.episodes[dataAnime?.episodes.length - 1]?.slug)
                     }
                   >
                     Episode Pertama
@@ -94,11 +92,7 @@ function DetailPage() {
                   <button
                     className="btn hover:shadow-secondary bg-secondary text-white shadow-xl shadow-secondary/60 dark:shadow-dark/20"
                     onClick={() =>
-                      goToWatch(
-                        dataAnime?.episode?.last?.slug,
-                        dataAnime?.episode?.last?.episode,
-                        dataAnime?.episode?.last?.subepisode
-                      )
+                      goToWatch(dataAnime?.episodes[0]?.slug)
                     }
                   >
                     Episode Terakhir
@@ -106,12 +100,12 @@ function DetailPage() {
                 </div>
                 <div className="w-full z-10 pt-6  rounded-xl flex flex-col ">
                   <h2 className="title-shadow text-dark dark:text-light text-2xl lg:text-4xl takota mb-3 tracking-widest lg:pl-0 text-center lg:text-left">
-                    {dataAnime?.info?.judul}
+                    {dataAnime?.detail_anime.title}
                   </h2>
                   <div className="overflow-auto hidden lg:flex mb-3 mx-2 lg:-mx-1 lg:mb-0 mt-1 lg:max-h-[200px]">
                     <p className="text-sm px-3 py-3 lg:py-0 lg:px-2 lg:text-base text-justify text-dark dark:text-light">
-                      {dataAnime?.synopsis?.length > 0
-                        ? dataAnime?.synopsis?.map((el) => <p className="mb-1">{el}</p>)
+                      {dataAnime?.detail_anime.sinopsis
+                        ? dataAnime?.detail_anime.sinopsis
                         : 'Belum ada sinopsis untuk anime ini.'}
                     </p>
                   </div>
@@ -122,102 +116,87 @@ function DetailPage() {
               <div className="w-full lg:w-1/2 flex-col gap-8 ">
                 <div className="p-4">
                   <h2 className="text-xl lg:text-3xl takota tracking-widest mb-4 text-center lg:text-left hidden lg:flex">
-                    Details{' '}
-                    {dataAnime?.info?.judul?.split(' ').length > 4 ? (
-                      <>
-                        {dataAnime?.info?.judul?.split(' ').slice(0, 4).join(' ')}
-                        <span className="text-secondary font-bold">...</span>
-                      </>
-                    ) : (
-                      dataAnime?.info?.judul
-                    )}{' '}
+                    Detail
                   </h2>
                   <table className="text-sm lg:text-base">
-                    <tr>
-                      <td className="text-nowrap align-top">Judul</td>
-                      <td className="px-2 text-secondary align-top">:</td>
-                      <td className="font-semibold">
-                        {dataAnime?.info?.judul ? dataAnime?.info?.judul : '-'}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="text-nowrap align-top">Japanese</td>
-                      <td className="px-2 text-secondary align-top">:</td>
-                      <td className="font-semibold">
-                        {dataAnime?.info?.japanese ? dataAnime?.info?.japanese : '-'}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="text-nowrap align-top">Skor</td>
-                      <td className="px-2 text-secondary align-top">:</td>
-                      <td className="font-semibold flex items-center">
-                        {dataAnime?.info?.skor ? (
-                          <>
-                            <StarIcon className="w-4 h-4 text-yellow-400 mr-1" />
-                            {` ${dataAnime?.info?.skor}`}
-                          </>
-                        ) : (
-                          '-'
-                        )}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="text-nowrap align-top">Produser</td>
-                      <td className="px-2 text-secondary align-top">:</td>
-                      <td className="font-semibold">
-                        {dataAnime?.info?.produser ? dataAnime?.info?.produser : '-'}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="text-nowrap align-top">Tipe</td>
-                      <td className="px-2 text-secondary align-top">:</td>
-                      <td className="font-semibold">
-                        {dataAnime?.info?.tipe ? dataAnime?.info?.tipe : '-'}
-                      </td>
-                    </tr>
                     <tr>
                       <td className="text-nowrap align-top">Status</td>
                       <td className="px-2 text-secondary align-top">:</td>
                       <td className="font-semibold">
-                        {dataAnime?.info?.status ? dataAnime?.info?.status : '-'}
+                        {dataAnime?.detail_anime?.status ? dataAnime?.detail_anime?.status : '-'}
                       </td>
-                    </tr>
-                    <tr>
-                      <td className="text-nowrap align-top">Total Episode</td>
-                      <td className="px-2 text-secondary align-top">:</td>
-                      <td className="font-semibold">
-                        {dataAnime?.info?.total_episode ? dataAnime?.info?.total_episode : '-'}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="text-nowrap align-top">Durasi</td>
-                      <td className="px-2 text-secondary align-top">:</td>
-                      <td className="font-semibold">
-                        {dataAnime?.info?.durasi ? dataAnime?.info?.durasi : '-'}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="text-nowrap align-top">Tanggal Rilis</td>
-                      <td className="px-2 text-secondary align-top">:</td>
-                      <td className="font-semibold">
-                        {dataAnime?.info?.tanggal_rilis ? dataAnime?.info?.tanggal_rilis : '-'}
-                      </td>
-                    </tr>
+                    </tr>  
                     <tr>
                       <td className="text-nowrap align-top">Studio</td>
                       <td className="px-2 text-secondary align-top">:</td>
                       <td className="font-semibold">
-                        {dataAnime?.info?.studio ? dataAnime?.info?.studio : '-'}
+                        {dataAnime?.detail_anime?.studio ? dataAnime?.detail_anime?.studio : '-'}
                       </td>
-                    </tr>
+                    </tr>  
                     <tr>
-                      <td className="text-nowrap align-top">Genre</td>
+                      <td className="text-nowrap align-top">Released</td>
                       <td className="px-2 text-secondary align-top">:</td>
                       <td className="font-semibold">
-                        {dataAnime?.info?.genre ? dataAnime?.info?.genre : '-'}
+                        {dataAnime?.detail_anime?.released ? dataAnime?.detail_anime?.released : '-'}
                       </td>
-                    </tr>
+                    </tr>  
+                    <tr>
+                      <td className="text-nowrap align-top">Season</td>
+                      <td className="px-2 text-secondary align-top">:</td>
+                      <td className="font-semibold">
+                        {dataAnime?.detail_anime?.season ? dataAnime?.detail_anime?.season : '-'}
+                      </td>
+                    </tr>  
+                    <tr>
+                      <td className="text-nowrap align-top">Type</td>
+                      <td className="px-2 text-secondary align-top">:</td>
+                      <td className="font-semibold">
+                        {dataAnime?.detail_anime?.type ? dataAnime?.detail_anime?.type : '-'}
+                      </td>
+                    </tr>  
+                    <tr>
+                      <td className="text-nowrap align-top">Director</td>
+                      <td className="px-2 text-secondary align-top">:</td>
+                      <td className="font-semibold">
+                        {dataAnime?.detail_anime?.director ? dataAnime?.detail_anime?.director : '-'}
+                      </td>
+                    </tr>  
+                    <tr>
+                      <td className="text-nowrap align-top">Producers</td>
+                      <td className="px-2 text-secondary align-top">:</td>
+                      <td className="font-semibold">
+                        {dataAnime?.detail_anime?.producers ? dataAnime?.detail_anime?.producers : '-'}
+                      </td>
+                    </tr>  
+                    <tr>
+                      <td className="text-nowrap align-top">Casts</td>
+                      <td className="px-2 text-secondary align-top">:</td>
+                      <td className="font-semibold">
+                        {dataAnime?.detail_anime?.casts ? dataAnime?.detail_anime?.casts : '-'}
+                      </td>
+                    </tr>  
+                    <tr>
+                      <td className="text-nowrap align-top">Released On</td>
+                      <td className="px-2 text-secondary align-top">:</td>
+                      <td className="font-semibold">
+                        {dataAnime?.detail_anime?.released_on ? dataAnime?.detail_anime?.released_on : '-'}
+                      </td>
+                    </tr>  
+                    <tr>
+                      <td className="text-nowrap align-top">Updated On</td>
+                      <td className="px-2 text-secondary align-top">:</td>
+                      <td className="font-semibold">
+                        {dataAnime?.detail_anime?.updated_on ? dataAnime?.detail_anime?.updated_on : '-'}
+                      </td>
+                    </tr>  
                   </table>
+                  <div className='flex gap-3 mt-4'>
+                    {dataAnime?.detail_anime?.genre?.map((el, i) => (
+                      <div key={i} className="bg-secondary text-light text-sm px-2 py-1 rounded-lg protest tracking-wider">
+                        {el.title}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
               <div className="w-full lg:w-1/2 p-4 ">
@@ -246,9 +225,7 @@ function DetailPage() {
                       className="w-full py-2 px-2 rounded-md text-nowrap flex items-center cursor-pointer pl-2 text-secondary bg-secondary/5 hover:shadow-md hover:shadow-secondary/70 hover:pl-4 hover:bg-secondary hover:text-light transition-all duration-200 ease-out text-sm lg:text-base protest tracking-wide"
                       onClick={() => goToWatch(el.slug)}
                     >
-                      {el.title
-                        ?.replace(dataAnime?.info?.judul, '')
-                        .replace('Subtitle Indonesia', '')}
+                      {el.title}
                     </div>
                   ))}
                 </div>
@@ -259,8 +236,8 @@ function DetailPage() {
                 Sinopsis
               </h2>
               <p className="text-sm text-justify text-dark">
-                {dataAnime?.synopsis?.length > 0
-                  ? dataAnime?.synopsis?.map((el) => <p className="mb-1">{el}</p>)
+                {dataAnime?.sinopsis
+                  ? dataAnime?.sinopsis
                   : 'Belum ada sinopsis untuk anime ini.'}
               </p>
             </div>

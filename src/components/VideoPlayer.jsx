@@ -5,9 +5,9 @@ import { ChevronDoubleRightIcon, ChevronDoubleLeftIcon } from '@heroicons/react/
 import { useNavigate, useParams } from 'react-router-dom'
 import FullLoading from './Loading'
 import GifLoading from './GifLoading'
+import Popular from './Popular'
 
 function VideoPlayer() {
-  const base_url = 'https://animex.biz.id'
   let { slug } = useParams()
   const iframeRef = useRef(null)
   const navigate = useNavigate()
@@ -21,11 +21,10 @@ function VideoPlayer() {
     setIsLoading(true)
     setIframeLoaded(false)
     try {
-      const res = await axios.get('https://anichi-api.vercel.app/tserver/get-video/' + s)
+      const res = await axios.get('https://anichi-api.vercel.app/sserver/video/?url=' + s)
 
       setDataAnime(res.data)
-      setDataEpisodes(res.data.episodes)
-      console.log(res.data, 'res.data')
+      setDataEpisodes(res.data.episodes.list)
       setIsLoading(false)
     } catch (error) {
       console.log(error)
@@ -34,23 +33,30 @@ function VideoPlayer() {
 
   useEffect(() => {
     if (slug) {
-      loadData(slug)
+      const decode = atob(slug)
+      loadData(decode)
     }
   }, [slug])
 
   const goToWatch = (slug) => {
-    navigate(`/watch/${slug}`)
+    const encode = btoa(slug)
+    navigate(`/watch/${encode}`)
   }
 
   const changeEpisode = (slug) => {
-    navigate(`/watch/${slug}`)
+    const encode = btoa(slug)
+    navigate(`/watch/${encode}`)
+  }
+
+  const goToDetail = (slug) => {
+    const encode = btoa(slug)
+    navigate(`/anime/${encode}`)
   }
 
   const changeResolution = async (src) => {
     setIframeLoaded(false)
-    const res = await axios.get('https://anichi-api.vercel.app/tserver/changeServer/' + src)
     try {
-      iframeRef.current.src = res.data.src
+      iframeRef.current.src = src
     } catch (error) {
       console.log(error)
     }
@@ -66,10 +72,10 @@ function VideoPlayer() {
 
   const searchEpisode = (text) => {
     if (text) {
-      const filtered = dataAnime.episodes.filter((item) => item.slug.includes(text))
+      const filtered = dataAnime.episodes.list.filter((item) => item.slug.includes(text))
       setDataEpisodes(filtered)
     } else {
-      setDataEpisodes(dataAnime.episodes)
+      setDataEpisodes(dataAnime.episodes.list)
     }
   }
 
@@ -82,7 +88,7 @@ function VideoPlayer() {
           <div>
             <div className="protest text-xl lg:text-2xl mb-6">
               <span className="pr-5 pb-2 ">
-                {dataAnime.title.replace('Subtitle Indonesia', '')}
+                {dataAnime.title.replace('Sub Indonesia', '')}
               </span>
             </div>
             <div className="flex flex-col lg:flex-row gap-8">
@@ -93,7 +99,7 @@ function VideoPlayer() {
                   className={`w-full h-full rounded-lg shadow-lg shadow-dark/50  bg-dark ${
                     !iframeLoaded ? 'hidden' : ''
                   }`}
-                  src={dataAnime.defaultPlayer}
+                  src={dataAnime.main_server}
                   onLoad={handleIframeLoad}
                   ref={iframeRef}
                   allowFullScreen
@@ -101,30 +107,36 @@ function VideoPlayer() {
               </div>
               <div className="w-full lg:w-[40%]">
                 <div className="flex gap-3">
-                  {dataAnime.navigation?.prev?.status ? (
+                  {dataAnime.prev?.status ? (
                     <button
-                      onClick={() => changeEpisode(dataAnime.navigation?.prev?.slug)}
+                      onClick={() => changeEpisode(dataAnime?.prev?.slug)}
                       className="btn hover:shadow-secondary bg-secondary text-white flex items-center"
                     >
                       <ChevronDoubleLeftIcon className="w-5 h-5" />
                       <span>Prev</span>
                     </button>
                   ) : (
-                    <button className="btn cursor-not-allowed border-2 border-secondary text-secondary flex items-center">
+                    <button className="btn cursor-not-allowed border border-secondary text-secondary bg-secondary/5 flex items-center hover:translate-y-0">
                       <ChevronDoubleLeftIcon className="w-5 h-5" />
                       <span>Prev</span>
                     </button>
                   )}
-                  {dataAnime.navigation?.next?.status ? (
+                  <button
+                      onClick={() => goToDetail(dataAnime?.detail_anime?.slug)}
+                      className="btn hover:shadow-secondary bg-secondary text-white flex items-center"
+                    >
+                      <span>Detail Anime</span>
+                    </button>
+                  {dataAnime?.next?.status ? (
                     <button
-                      onClick={() => changeEpisode(dataAnime.navigation?.next?.slug)}
+                      onClick={() => changeEpisode(dataAnime?.next?.slug)}
                       className="btn hover:shadow-secondary bg-secondary text-white flex items-center"
                     >
                       <span>Next</span>
                       <ChevronDoubleRightIcon className="w-5 h-5" />
                     </button>
                   ) : (
-                    <button className="btn cursor-not-allowed border-2 border-secondary text-secondary flex items-center">
+                    <button className="btn cursor-not-allowed border border-secondary text-secondary bg-secondary/5 flex items-center hover:translate-y-0">
                       <span>Next</span>
                       <ChevronDoubleRightIcon className="w-5 h-5" />
                     </button>
@@ -132,31 +144,64 @@ function VideoPlayer() {
                 </div>
                 <div className="text-2xl takota mt-8 lg:mt-4 mb-2 tracking-widest text-center lg:text-left">
                   Pilih Server Video
-                </div>
-                <div className="flex flex-col-reverse gap-6">
-                  {dataAnime?.servers?.map((el, i) => (
-                    <div key={i} className=" text-sm rounded-lg">
-                      <div className="mb-2 tracking-wider protest">Server {el.resolution}</div>
-                      <div className="flex flex-wrap gap-2">
-                        {el?.server?.length > 0
-                          ? el?.server?.map((val, j) => (
-                              <button
-                                onClick={() => changeResolution(val.data)}
-                                className="btn border border-secondary text-secondary capitalize hover:bg-secondary hover:text-white hover:shadow-secondary"
-                              >
-                                {val.text == 'ondesuhd' || val.text == 'ondesu3'
-                                  ? 'Anichi'
-                                  : val.text}
-                              </button>
-                            ))
-                          : ''}
-                      </div>
-                    </div>
+                </div> 
+                <div className="grid grid-cols-3 gap-4">
+                  {dataAnime?.list_server?.map((el, i) => (
+                    <button
+                      key={i}
+                      onClick={() => changeResolution(el.src)}
+                      className="btn text-secondary bg-secondary/5 hover:shadow-md hover:shadow-secondary/70 hover:bg-secondary hover:text-light text-sm"
+                    >
+                      {el.server}
+                    </button> 
                   ))}
                 </div>
               </div>
             </div>
-            <div className="flex gap-4 flex-col lg:flex-row mt-8 lg:mt-12">
+            <div className="flex gap-4 flex-col lg:flex-row mt-8 lg:mt-12 lg:gap-8">
+              <div className="rounded-xl w-full lg:w-[60%]">
+                <div className="w-full ">
+                  <h2 className="text-2xl takota mb-4 tracking-widest text-center lg:text-left">
+                    Episode List
+                  </h2>
+                  <div className="mb-2">
+                    <input
+                      className="input-search-eps"
+                      type="text"
+                      placeholder="Cari Episode"
+                      onKeyUp={(e) => searchEpisode(e.currentTarget.value)}
+                    />
+                  </div>
+                  <div className="max-h-[320px] lg:max-h-[300px] overflow-auto flex flex-col gap-2 pr-2">
+                    {dataEpisodes.length === 0 ? (
+                      <div className="w-full py-2 px-2 rounded-md text-nowrap flex items-center cursor-pointer pl-2 shadow-md shadow-secondary/70 pl-4 bg-secondary text-light transition-all duration-200 ease-out text-sm lg:text-base protest tracking-wide">
+                        Episode tidak tersedia
+                      </div>
+                    ) : (
+                      ''
+                    )}
+                    {dataEpisodes?.map((el, i) => (
+                      <div
+                        key={i}
+                        className="w-full py-2 px-2 rounded-md text-nowrap flex items-center cursor-pointer pl-2 text-secondary bg-secondary/5 hover:shadow-md hover:shadow-secondary/70 hover:pl-4 hover:bg-secondary hover:text-light transition-all duration-200 ease-out text-sm lg:text-base protest tracking-wide"
+                        onClick={() => goToWatch(el.slug)}
+                      >
+                        {el.title?.replace('Subtitle Indonesia', '')}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <div className="rounded-xl w-full lg:w-[40%]">
+                <div className="mt-4 text-2xl text-center lg:text-left takota tracking-wider mb-4">
+                  Popular Series
+                </div>
+                <div>
+                  <Popular data={dataAnime.popular} />
+                </div>
+              </div>
+            </div>
+            {/* <div className="flex gap-4 flex-col lg:flex-row mt-8 lg:mt-12">
               <div className="rounded-xl w-full lg:w-1/2">
                 <div className="w-full p-4 ">
                   <h2 className="text-2xl takota mb-4 tracking-widest text-center lg:text-left">
@@ -184,7 +229,7 @@ function VideoPlayer() {
                         className="w-full py-2 px-2 rounded-md text-nowrap flex items-center cursor-pointer pl-2 text-secondary bg-secondary/5 hover:shadow-md hover:shadow-secondary/70 hover:pl-4 hover:bg-secondary hover:text-light transition-all duration-200 ease-out text-sm lg:text-base protest tracking-wide"
                         onClick={() => goToWatch(el.slug)}
                       >
-                        {el.text.replace('Subtitle Indonesia', '')}
+                        {el.title?.replace('Subtitle Indonesia', '')}
                       </div>
                     ))}
                   </div>
@@ -214,7 +259,7 @@ function VideoPlayer() {
                   ))}
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </>
       )}
