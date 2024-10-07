@@ -54,7 +54,7 @@ function SearchData() {
                   <CardSearch data={el} key={i} />
                 ))}
               </div>
-              <div className="flex justify-center mt-8 gap-2">
+              <div className="flex justify-center mt-8 gap-2 flex-wrap w-full">
                 { pagination?.prev.status ? (
                   <button
                     className="protest text-base flex items-center gap-1 py-2 px-3 rounded-lg bg-secondary text-white shadow-lg shadow-secondary/70 dark:shadow-none hover:-translate-y-1 transition-all"
