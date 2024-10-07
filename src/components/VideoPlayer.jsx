@@ -201,65 +201,37 @@ function VideoPlayer() {
                 </div>
               </div>
             </div>
-            {/* <div className="flex gap-4 flex-col lg:flex-row mt-8 lg:mt-12">
-              <div className="rounded-xl w-full lg:w-1/2">
-                <div className="w-full p-4 ">
-                  <h2 className="text-2xl takota mb-4 tracking-widest text-center lg:text-left">
-                    Episode List
-                  </h2>
-                  <div className="mb-2">
-                    <input
-                      className="input-search-eps"
-                      type="text"
-                      placeholder="Cari Episode"
-                      onKeyUp={(e) => searchEpisode(e.currentTarget.value)}
-                    />
+            <div className="flex flex-col gap-8">
+              {dataAnime?.downloads?.map((el, i) => (
+                <div key={i} className="rounded-xl w-full lg:w-1/2">
+                  <div className="mt-4 text-2xl text-center lg:text-left takota tracking-wider mb-4">
+                    {el.title}
                   </div>
-                  <div className="max-h-[320px] lg:max-h-[300px] overflow-auto flex flex-col gap-2 pr-2">
-                    {dataEpisodes.length === 0 ? (
-                      <div className="w-full py-2 px-2 rounded-md text-nowrap flex items-center cursor-pointer pl-2 shadow-md shadow-secondary/70 pl-4 bg-secondary text-light transition-all duration-200 ease-out text-sm lg:text-base protest tracking-wide">
-                        Episode tidak tersedia
-                      </div>
-                    ) : (
-                      ''
-                    )}
-                    {dataEpisodes?.map((el, i) => (
-                      <div
-                        key={i}
-                        className="w-full py-2 px-2 rounded-md text-nowrap flex items-center cursor-pointer pl-2 text-secondary bg-secondary/5 hover:shadow-md hover:shadow-secondary/70 hover:pl-4 hover:bg-secondary hover:text-light transition-all duration-200 ease-out text-sm lg:text-base protest tracking-wide"
-                        onClick={() => goToWatch(el.slug)}
-                      >
-                        {el.title?.replace('Subtitle Indonesia', '')}
-                      </div>
+                  <div className="flex flex-col-reverse gap-6">
+                    {el?.servers.map((val, j) => (
+                      <>
+                        {val?.resolution && val.links.length !== 0 ? (
+                          <div key={'val'+j} className=" text-sm rounded-lg">
+                            <div className="mb-2 protest tracking-wider text-md">{val.resolution}</div>
+                            <div className="flex flex-wrap gap-2">
+                              { val.links.map((value, k) => (
+                                <button
+                                  key={'value'+k}
+                                  onClick={() => downloadAnime(value.src)}
+                                  className="btn border border-secondary text-secondary capitalize hover:bg-secondary hover:text-white hover:shadow-secondary"
+                                >
+                                  {value.name}
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+                        ) : ''}
+                      </>
                     ))}
                   </div>
                 </div>
-              </div>
-              <div className="rounded-xl w-full lg:w-1/2">
-                <div className="mt-4 text-2xl text-center lg:text-left takota tracking-wider mb-4">
-                  Download {dataAnime.title?.replace('Subtitle Indonesia', '')}
-                </div>
-                <div className="flex flex-col-reverse gap-6">
-                  {dataAnime?.downloads?.map((el, i) => (
-                    <div key={i} className=" text-sm rounded-lg">
-                      <div className="mb-2 protest tracking-wider text-md">{el.resolution}</div>
-                      <div className="flex flex-wrap gap-2">
-                        {el?.server?.length > 0
-                          ? el?.server?.map((val, j) => (
-                              <button
-                                onClick={() => downloadAnime(val.src)}
-                                className="btn border border-secondary text-secondary capitalize hover:bg-secondary hover:text-white hover:shadow-secondary"
-                              >
-                                {val.text}
-                              </button>
-                            ))
-                          : ''}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div> */}
+              ))}
+            </div>
           </div>
         </>
       )}

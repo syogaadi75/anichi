@@ -58,13 +58,11 @@ function CardSearch({ data }) {
         <motion.div className="linear-mask-image">
           <motion.img variants={imgMotion} className="z-1 object-cover" src={cover} alt="cover" />
         </motion.div>
-        {episode && (
-          <motion.div variants={hideTextMotion} className="eps-container">
-            <motion.p className="truncate-text-2">
-              <motion.span className="inline">{episode}</motion.span> 
-            </motion.p>
-          </motion.div>
-        )}
+        <motion.div variants={hideTextMotion} className="eps-container">
+          <motion.p className="truncate-text-2">
+            <motion.span className="inline">{episode}</motion.span> 
+          </motion.p>
+        </motion.div>
         <motion.div variants={hideTextMotion} className="title-container">
           <motion.p className="truncate-text-2">{title}</motion.p>
         </motion.div>
