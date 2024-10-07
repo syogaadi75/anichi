@@ -174,7 +174,7 @@ function VideoPlayer() {
                   </div>
                   <div className="max-h-[320px] lg:max-h-[300px] overflow-auto flex flex-col gap-2 pr-2">
                     {dataEpisodes.length === 0 ? (
-                      <div className="w-full py-2 px-2 rounded-md text-nowrap flex items-center cursor-pointer pl-2 shadow-md shadow-secondary/70 pl-4 bg-secondary text-light transition-all duration-200 ease-out text-sm lg:text-base protest tracking-wide">
+                      <div className="w-full py-2 px-2 rounded-md text-nowrap flex items-center cursor-pointer pl-2 shadow-md shadow-secondary/70 bg-secondary text-light transition-all duration-200 ease-out text-sm lg:text-base protest tracking-wide">
                         Episode tidak tersedia
                       </div>
                     ) : (

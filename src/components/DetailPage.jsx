@@ -190,7 +190,7 @@ function DetailPage() {
                       </td>
                     </tr>  
                   </table>
-                  <div className='flex gap-3 mt-4'>
+                  <div className='flex gap-3 mt-4 flex-wrap'>
                     {dataAnime?.detail_anime?.genre?.map((el, i) => (
                       <div key={i} className="bg-secondary text-light text-sm px-2 py-1 rounded-lg protest tracking-wider">
                         {el.title}
