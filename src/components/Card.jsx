@@ -93,7 +93,7 @@ function Card({ data, recent }) {
             <PlayCircleIcon className="w-12 h-12 text-red-400" />
           </div>
           <div className="font-bold border-b-2 border-secondary pb-2 px-4">
-            <p>Episode {episode}</p>
+            <p>{episode}</p>
           </div>
           <div className="font-semibold text-center truncate-text-3">
             <p>{title}</p>
