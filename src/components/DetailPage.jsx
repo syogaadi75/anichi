@@ -64,7 +64,8 @@ function DetailPage() {
               className={`h-[35vh] lg:h-[350px] w-full object-cover ${
                 isDarkMode ? 'grayscale' : ''
               }`}
-              src={isDarkMode ? DarkBanner : dataAnime?.banner ? dataAnime?.banner : DefaultBanner}
+              src={DefaultBanner}
+              style={{ objectPosition: isDarkMode ? '50% 75%' : '50% 0%' }}
               alt="banner"
             />
           </div>

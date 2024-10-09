@@ -56,7 +56,6 @@ function Navbar() {
   useEffect(() => {
     if (scrolled) {
       gsap.to('#navbar', {
-        boxShadow: '0px 5px 20px 0px rgba(6,3,10,.3)',
         backgroundColor: isDarkMode ? '#06030A' : '#FFFBEC',
         height: 65,
         duration: 0.3

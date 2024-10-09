@@ -86,11 +86,12 @@ function VideoPlayer() {
       ) : (
         <>
           <div>
-            <div className="protest text-xl lg:text-2xl mb-6">
-              <span className="pr-5 pb-2 ">
+            <div className="protest text-xl lg:text-2xl mb-1 group cursor-pointer" onClick={() => goToDetail(dataAnime?.detail_anime?.slug)}>
+              <span className="pr-5 pb-2 group-hover:text-secondary group-hover:underline transition-all">
                 {dataAnime.title.replace('Sub Indonesia', '')}
               </span>
             </div>
+            <div className='mb-6 text-sm text-gray-400'>Released On {dataAnime.released_at}</div>
             <div className="flex flex-col lg:flex-row gap-8">
               <div className="w-full h-[200px] lg:w-[60%] lg:h-[450px]" id="iframe-container">
                 {!iframeLoaded ? <GifLoading /> : ''}
@@ -106,7 +107,7 @@ function VideoPlayer() {
                 ></iframe>
               </div>
               <div className="w-full lg:w-[40%]">
-                <div className="flex gap-3">
+                <div className="flex gap-3 justify-center lg:justify-start">
                   {dataAnime.prev?.status ? (
                     <button
                       onClick={() => changeEpisode(dataAnime?.prev?.slug)}
@@ -142,17 +143,17 @@ function VideoPlayer() {
                     </button>
                   )}
                 </div>
-                <div className="text-2xl takota mt-8 lg:mt-4 mb-2 tracking-widest text-center lg:text-left">
+                <div className="text-2xl takota mt-8 lg:mt-4 mb-4 tracking-widest text-center lg:text-left">
                   Pilih Server Video
                 </div> 
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-3 gap-2 lg:gap-4">
                   {dataAnime?.list_server?.map((el, i) => (
                     <button
                       key={i}
                       onClick={() => changeResolution(el.src)}
-                      className="btn text-secondary bg-secondary/5 hover:shadow-md hover:shadow-secondary/70 hover:bg-secondary hover:text-light text-sm"
+                      className="btn text-secondary bg-secondary/5 hover:shadow-md hover:shadow-secondary/70 hover:bg-secondary hover:text-light font-semibold text-xs lg:text-sm"
                     >
-                      {el.server}
+                      <div className='w-full text-center lg:text-left'>{el.server}</div>
                     </button> 
                   ))}
                 </div>
