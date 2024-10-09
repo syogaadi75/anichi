@@ -190,7 +190,7 @@ function Navbar() {
           >
             Home
           </a>
-          <a
+          {/* <a
             href="javascript:;"
             className="py-2 w-full text-left text-secondary bg-secondary/5 dark:bg-white/10 rounded dark:text-light px-3 cursor-pointer"
             onClick={() => changePage('/ongoing')}
@@ -203,7 +203,7 @@ function Navbar() {
             onClick={() => changePage('/completed')}
           >
             Completed Anime
-          </a>
+          </a> */}
         </div>
       </div>
     </>
