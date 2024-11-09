@@ -187,7 +187,7 @@ function VideoPlayer() {
                         className="w-full py-2 px-2 rounded-md text-nowrap flex items-center cursor-pointer pl-2 text-secondary bg-secondary/5 hover:shadow-md hover:shadow-secondary/70 hover:pl-4 hover:bg-secondary hover:text-light transition-all duration-200 ease-out text-sm lg:text-base protest tracking-wide"
                         onClick={() => goToWatch(el.slug)}
                       >
-                        {el.title?.replace('Subtitle Indonesia', '')}
+                        {el.title.replace(dataAnime?.detail_anime.title, '').replace('Sub Indonesia', '')}
                       </div>
                     ))}
                   </div>

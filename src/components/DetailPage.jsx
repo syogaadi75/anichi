@@ -113,6 +113,13 @@ function DetailPage() {
                 </div>
               </div>
             </div>
+            <div className='flex gap-3 mt-4 flex-wrap mb-4 lg:mb-0 p-4'>
+              {dataAnime?.detail_anime?.genre?.map((el, i) => (
+                <div key={i} className="bg-secondary text-light text-sm px-2 py-1 rounded-lg protest tracking-wider">
+                  {el.title}
+                </div>
+              ))}
+            </div>
             <div className="flex flex-col lg:flex-row items-start lg:mt-8 gap-8">
               <div className="w-full lg:w-1/2 flex-col gap-8 ">
                 <div className="p-4">
@@ -191,13 +198,6 @@ function DetailPage() {
                       </td>
                     </tr>  
                   </table>
-                  <div className='flex gap-3 mt-4 flex-wrap'>
-                    {dataAnime?.detail_anime?.genre?.map((el, i) => (
-                      <div key={i} className="bg-secondary text-light text-sm px-2 py-1 rounded-lg protest tracking-wider">
-                        {el.title}
-                      </div>
-                    ))}
-                  </div>
                 </div>
               </div>
               <div className="w-full lg:w-1/2 p-4 ">
@@ -226,7 +226,7 @@ function DetailPage() {
                       className="w-full py-2 px-2 rounded-md text-nowrap flex items-center cursor-pointer pl-2 text-secondary bg-secondary/5 hover:shadow-md hover:shadow-secondary/70 hover:pl-4 hover:bg-secondary hover:text-light transition-all duration-200 ease-out text-sm lg:text-base protest tracking-wide"
                       onClick={() => goToWatch(el.slug)}
                     >
-                      {el.title}
+                      {el.title.replace(dataAnime?.detail_anime.title, '').replace('Sub Indonesia', '')}
                     </div>
                   ))}
                 </div>
@@ -236,10 +236,10 @@ function DetailPage() {
               <h2 className="text-xl lg:text-3xl takota mb-4 tracking-widest text-center lg:text-left">
                 Sinopsis
               </h2>
-              <p className="text-sm text-justify text-dark">
-                {dataAnime?.sinopsis
-                  ? dataAnime?.sinopsis
-                  : 'Belum ada sinopsis untuk anime ini.'}
+              <p className="text-sm text-justify"> 
+              {dataAnime?.detail_anime.sinopsis
+                        ? dataAnime?.detail_anime.sinopsis
+                        : 'Belum ada sinopsis untuk anime ini.'}
               </p>
             </div>
           </div>
