@@ -36,7 +36,6 @@ function Recent() {
     try {
       const encode = btoa(url)
       const res = await axios.get('https://anichi-api.vercel.app/sserver/home?url='+url)
-      console.log(res.data, 'res')
       setOngoing(res.data.animes) 
       setPopular(res.data.popular) 
       setNavigation(res.data.navigation)
