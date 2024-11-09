@@ -140,7 +140,7 @@ body {
   @apply absolute bottom-10 lg:bottom-12 rounded-r-lg rounded-b-none h-7 bg-secondary z-10 text-light px-3 lg:px-4 flex items-center text-xs lg:text-sm;
 }
 .recent-item .title-container {
-  @apply absolute bottom-0 w-full h-10 lg:h-12  z-10 text-dark px-4 flex items-center text-xs lg:text-sm dark:text-light;
+  @apply absolute bottom-0 w-full h-10 lg:h-12  z-10 text-dark px-2 flex items-center text-xs lg:text-sm dark:text-light;
 }
 .recent-item .full-hover {
   @apply absolute w-full h-full z-10 bg-dark/60 text-light flex flex-col items-center justify-center text-xs lg:text-sm px-4 gap-2;
