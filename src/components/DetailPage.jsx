@@ -44,10 +44,10 @@ function DetailPage() {
 
   const searchEpisode = (text) => {
     if (text) {
-      const filtered = dataAnime.episodes.filter((item) => item.slug.includes(text))
+      const filtered = dataAnime.list_episodes.filter((item) => item.episode == text)
       setDataEpisodes(filtered)
     } else {
-      setDataEpisodes(dataAnime.episodes)
+      setDataEpisodes(dataAnime.list_episodes)
     }
   }
 

@@ -81,10 +81,10 @@ function VideoPlayer() {
 
   const searchEpisode = (text) => {
     if (text) {
-      const filtered = dataAnime.episodes.list.filter((item) => item.slug.includes(text))
+      const filtered = dataAnime.list_episodes.filter((item) => item.title.includes(text))
       setDataEpisodes(filtered)
     } else {
-      setDataEpisodes(dataAnime.episodes.list)
+      setDataEpisodes(dataAnime.list_episodes)
     }
   }
 
