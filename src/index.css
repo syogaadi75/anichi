@@ -171,7 +171,7 @@ body {
   @apply rounded h-7 bg-secondary z-10 text-light px-3 flex items-center text-xs;
 }
 .landscape-card .released-container {
-  @apply rounded h-7 bg-dark/40 z-10 text-light px-3 flex items-center text-xs;
+  @apply rounded h-7 bg-dark/40 z-10 text-light px-3 hidden lg:flex items-center text-xs;
 }
 .landscape-card .title-container {
   @apply absolute bottom-0 w-full h-10 z-10 text-dark px-2 flex items-center text-xs dark:text-light;

@@ -66,7 +66,7 @@ function Recent() {
             <>
               <div className="recent-container">
                 {ongoing?.map((el, i) => (
-                  <LandscapeCard recent={true} data={el} key={i} />
+                  <LandscapeCard data={el} key={i} />
                 ))}
               </div>
               <div className="flex justify-center mt-4 lg:mt-6">

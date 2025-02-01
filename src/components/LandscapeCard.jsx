@@ -49,7 +49,7 @@ function LandscapeCard({ data, recent }) {
     if (recent) {
       setLoading(true)
       try {
-        navigate(`/watch/${btoa(slug)}`)
+        navigate(`/watch/${slug}`)
       } catch (error) {
         console.log(error)
       }
