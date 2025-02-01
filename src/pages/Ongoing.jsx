@@ -4,21 +4,17 @@ import { useNavigate } from 'react-router-dom'
 import Card from '../components/Card'
 import axios from 'axios'
 import ReactPaginate from 'react-paginate'
-import {
-  ArrowRightCircleIcon,
-  ArrowRightIcon,
-  ChevronDoubleLeftIcon,
-  ChevronDoubleRightIcon,
-  PlayCircleIcon
-} from '@heroicons/react/24/outline'
+import { ArrowRightCircleIcon, ArrowRightIcon, ChevronDoubleLeftIcon, ChevronDoubleRightIcon, PlayCircleIcon } from '@heroicons/react/24/outline'
 import FullLoading from '../components/Loading'
 import GifLoading from '../components/GifLoading'
+import LandscapeCard from '../components/LandscapeCard'
 
 function Ongoing() {
   const navigate = useNavigate()
   const [ongoing, setOngoing] = useState([])
   const [pageCount, setPageCount] = useState(0)
   const [page, setPage] = useState(1)
+  const [pageActive, setPageActive] = useState({})
   const [isLoading, setIsLoading] = useState(true)
 
   const scrollToTop = () => {
@@ -28,15 +24,17 @@ function Ongoing() {
     })
   }
 
-  const loadData = async (navPage) => {
+  const loadData = async (page) => {
+    setIsLoading(true)
     try {
-      const res = await axios.get('https://anichi-api.vercel.app/tserver/ongoing', {
-        params: {
-          page: navPage
-        }
+      const params = {
+        page
+      }
+      const res = await axios.get(import.meta.env.VITE_ANICHI_API_URL + '/latest-anime', {
+        params: params
       })
-      setOngoing(res.data.list)
-      setPageCount(res.data.maxPage)
+      setOngoing(res.data.animes)
+      setPageCount(res.data.pagination.maxPage)
       setIsLoading(false)
       scrollToTop()
     } catch (error) {
@@ -45,13 +43,16 @@ function Ongoing() {
   }
 
   useEffect(() => {
-    loadData(page)
-  }, [])
+    async function fetchData() {
+      console.log(page, 'page')
+      await loadData(page)
+    }
+    fetchData()
+  }, [page])
 
   const handlePageClick = (event) => {
     const newPage = event.selected + 1
     setPage(newPage)
-    loadData(newPage)
   }
 
   return (
@@ -62,7 +63,7 @@ function Ongoing() {
       <div className="section" id="ongoing">
         <div className="flex-col lg:flex-row text-center lg:text-left gap-2 flex justify-center">
           <div className="pr-4 pb-2 text-3xl lg:text-5xl takota tracking-wider">
-            Anime <span className="text-secondary">`|,</span> Ongoing
+            Anime <span className="text-secondary">`|,</span> Terbaru
           </div>
         </div>
         {isLoading ? (
@@ -71,7 +72,7 @@ function Ongoing() {
           <>
             <div className="recent-container">
               {ongoing.map((el, i) => (
-                <Card data={el} key={i} />
+                <LandscapeCard data={el} key={i} />
               ))}
             </div>
             <ReactPaginate
@@ -79,9 +80,7 @@ function Ongoing() {
               nextLabel={
                 <div
                   className={`${
-                    page === pageCount || page > pageCount
-                      ? 'cursor-not-allowed bg-dark'
-                      : 'cursor-pointer bg-secondary hover:shadow-lg hover:shadow-secondary/70 transition-all'
+                    page === pageCount || page > pageCount ? 'cursor-not-allowed bg-dark' : 'cursor-pointer bg-secondary hover:shadow-lg hover:shadow-secondary/70 transition-all'
                   } flex items-center gap-1 rounded-lg text-white py-2 px-2 text-sm`}
                 >
                   <span>Next</span>
@@ -91,9 +90,7 @@ function Ongoing() {
               previousLabel={
                 <div
                   className={`${
-                    page === 1
-                      ? 'cursor-not-allowed bg-dark'
-                      : 'cursor-pointer bg-secondary hover:shadow-lg hover:shadow-secondary/70 transition-all'
+                    page === 1 ? 'cursor-not-allowed bg-dark' : 'cursor-pointer bg-secondary hover:shadow-lg hover:shadow-secondary/70 transition-all'
                   } flex items-center gap-1 rounded-lg text-white py-2 px-2 text-sm`}
                 >
                   <ChevronDoubleLeftIcon className="w-4" strokeWidth={2} />
@@ -102,6 +99,7 @@ function Ongoing() {
               }
               onPageChange={handlePageClick}
               pageCount={pageCount}
+              initialPage={page - 1}
               renderOnZeroPageCount={null}
               activeClassName="pagination-active"
               className="pagination-container"

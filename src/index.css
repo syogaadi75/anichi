@@ -53,8 +53,8 @@ body {
 
 /* Tabs */
 .react-tabs__tab-list {
-  @apply flex flex-row gap-2
-} 
+  @apply flex flex-row gap-2;
+}
 
 .react-tabs__tab {
   @apply text-secondary bg-secondary/5 text-sm lg:text-base font-semibold cursor-pointer px-4 py-2 rounded-lg mb-8 select-none outline-none;
@@ -89,7 +89,7 @@ body {
 }
 
 .nav-item {
-  @apply protest text-[1rem] tracking-wider text-primary dark:text-light  group-hover:font-bold group-hover:text-secondary group-hover:-translate-x-1 transition-all;
+  @apply protest text-[1rem] tracking-wider text-primary dark:text-light  group-hover:font-bold group-hover:text-secondary group-hover:-translate-x-1 transition-all cursor-pointer;
 }
 
 .nav-search {
@@ -131,7 +131,7 @@ body {
 
 /* Recent */
 .recent-container {
-  @apply flex flex-wrap gap-4 mt-8 justify-center;
+  @apply flex flex-wrap gap-1 mt-8 justify-center;
 }
 .recent-item {
   @apply relative flex flex-col w-[150px] h-[200px] lg:w-[165px] lg:h-[230px] bg-contain bg-center overflow-hidden cursor-pointer  border-secondary;
@@ -159,6 +159,65 @@ body {
 }
 
 /* End Recent */
+
+/* Landscape Card */
+.landscape-card {
+  @apply relative flex flex-col w-full h-32 lg:h-36 bg-contain bg-center overflow-hidden cursor-pointer border-secondary;
+}
+.landscape-card .eps-released-container {
+  @apply absolute left-2 bottom-10 flex flex-col items-start text-xs gap-1 flex-wrap;
+}
+.landscape-card .eps-container {
+  @apply rounded h-7 bg-secondary z-10 text-light px-3 flex items-center text-xs;
+}
+.landscape-card .released-container {
+  @apply rounded h-7 bg-dark/40 z-10 text-light px-3 flex items-center text-xs;
+}
+.landscape-card .title-container {
+  @apply absolute bottom-0 w-full h-10 z-10 text-dark px-2 flex items-center text-xs dark:text-light;
+}
+.landscape-card .full-hover {
+  @apply absolute w-full h-full z-10 bg-dark/60 text-light flex flex-col items-center justify-center text-xs px-4 gap-2;
+}
+
+/* Potrait Card */
+.potrait-card {
+  @apply relative flex flex-col w-full h-[30vh] lg:h-64 bg-contain bg-center cursor-pointer border-secondary;
+}
+
+.potrait-card .eps-released-container {
+  @apply absolute left-2 bottom-10 flex flex-col items-start text-xs gap-1 flex-wrap;
+}
+
+.potrait-card .eps-container {
+  @apply rounded h-7 bg-secondary z-10 text-light px-3 flex items-center text-xs;
+}
+
+.potrait-card .side-badge-container {
+  @apply rounded h-7 z-10 px-3 flex items-center text-xs;
+}
+
+.potrait-card .released-container {
+  @apply rounded h-7 bg-dark/40 z-10 text-light px-3 flex items-center text-xs;
+}
+
+.potrait-card .title-container {
+  @apply absolute bottom-0 w-full h-10 z-10 text-dark px-2 flex items-center text-xs dark:text-light;
+}
+
+.potrait-card .full-hover {
+  border-radius: inherit;
+  @apply absolute w-full h-full z-10 bg-dark/60 text-light flex flex-col items-center justify-center text-xs px-4 gap-2;
+}
+
+/* Menyesuaikan posisi card detail */
+.potrait-card .card-detail {
+  @apply absolute top-0 left-[110%] w-52 p-4 bg-gray-800 text-white shadow-lg rounded-lg z-50 hidden;
+}
+
+.potrait-card:hover .card-detail {
+  @apply block;
+}
 
 /* Video Player */
 .server-container {

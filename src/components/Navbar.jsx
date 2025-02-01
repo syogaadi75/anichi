@@ -1,11 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import {
-  MagnifyingGlassIcon,
-  Bars3Icon,
-  XMarkIcon,
-  MoonIcon,
-  SunIcon
-} from '@heroicons/react/24/outline'
+import { MagnifyingGlassIcon, Bars3Icon, XMarkIcon, MoonIcon, SunIcon } from '@heroicons/react/24/outline'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useNavigate } from 'react-router-dom'
@@ -127,43 +121,30 @@ function Navbar() {
         <div className="nav-container">
           <div className="nav-item-container">
             <div className="nav-items group">
-              <a href="javascript:;" className="nav-item" onClick={() => navigate('/')}>
+              <span className="nav-item" onClick={() => navigate('/')}>
                 Home
-              </a>
-            </div>
-            {/* <div className="nav-items group">
-              <a href="javascript:;" className="nav-item" onClick={() => navigate('/ongoing')}>
-                Ongoing Anime
-              </a>
+              </span>
             </div>
             <div className="nav-items group">
-              <a href="javascript:;" className="nav-item" onClick={() => navigate('/completed')}>
-                Completed Anime
-              </a>
-            </div> */}
+              <span className="nav-item" onClick={() => navigate('/ongoing')}>
+                Anime Terbaru
+              </span>
+            </div>
+            <div className="nav-items group">
+              <span className="nav-item" onClick={() => navigate('/completed')}>
+                Daftar Anime
+              </span>
+            </div>
           </div>
           <div className="nav-search">
-            <input
-              ref={searchInput}
-              className="search-input"
-              type="text"
-              placeholder="Search"
-              onKeyDown={handleKeyPress}
-            />
+            <input ref={searchInput} className="search-input" type="text" onKeyDown={handleKeyPress} />
             <button className="btn-search group" onClick={searchAnime}>
-              <MagnifyingGlassIcon
-                className="w-4 h-4 text-secondary dark:text-light dark:group-hover:text-dark group-hover:text-light"
-                strokeWidth={4}
-              />
+              <MagnifyingGlassIcon className="w-4 h-4 text-secondary dark:text-light dark:group-hover:text-dark group-hover:text-light" strokeWidth={4} />
             </button>
           </div>
           <div className="flex items-center">
             <button className="btn-hamburger" onClick={toggleDarkMode}>
-              {isDarkMode ? (
-                <SunIcon className="w-6 h-6 text-ligth" />
-              ) : (
-                <MoonIcon className="w-6 h-6 text-ligth" />
-              )}
+              {isDarkMode ? <SunIcon className="w-6 h-6 text-ligth" /> : <MoonIcon className="w-6 h-6 text-ligth" />}
             </button>
           </div>
           <div className="nav-hamburger">
@@ -183,27 +164,15 @@ function Navbar() {
           Ani<span className="text-secondary">`</span>chi
         </h2>
         <div className="flex flex-col px-8 mt-8 protest text-xl gap-5">
-          <a
-            href="javascript:;"
-            className="py-2 w-full text-left text-secondary bg-secondary/5 dark:bg-white/10 rounded dark:text-light px-3 cursor-pointer"
-            onClick={() => changePage('/')}
-          >
+          <span className="py-2 w-full text-left text-secondary bg-secondary/5 dark:bg-white/10 rounded dark:text-light px-3 cursor-pointer" onClick={() => changePage('/')}>
             Home
-          </a>
-          {/* <a
-            href="javascript:;"
-            className="py-2 w-full text-left text-secondary bg-secondary/5 dark:bg-white/10 rounded dark:text-light px-3 cursor-pointer"
-            onClick={() => changePage('/ongoing')}
-          >
-            Ongoing Anime
-          </a>
-          <a
-            href="javascript:;"
-            className="py-2 w-full text-left text-secondary bg-secondary/5 dark:bg-white/10 rounded dark:text-light px-3 cursor-pointer"
-            onClick={() => changePage('/completed')}
-          >
-            Completed Anime
-          </a> */}
+          </span>
+          <span className="py-2 w-full text-left text-secondary bg-secondary/5 dark:bg-white/10 rounded dark:text-light px-3 cursor-pointer" onClick={() => changePage('/ongoing')}>
+            Anime Terbaru
+          </span>
+          <span className="py-2 w-full text-left text-secondary bg-secondary/5 dark:bg-white/10 rounded dark:text-light px-3 cursor-pointer" onClick={() => changePage('/completed')}>
+            Daftar Anime
+          </span>
         </div>
       </div>
     </>
